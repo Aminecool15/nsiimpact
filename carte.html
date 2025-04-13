@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conflits Modernes - Carte</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #E0E0E0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+        }
+
+        /* Navigation Bar */
+        .topbar {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        .topbar nav a {
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: bold;
+            font-size: 16px;
+            color: #FFD700;
+            transition: color 0.3s;
+        }
+        .topbar nav a:hover {
+            color: #FFA500;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin: 120px auto 40px;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: 50px;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+
+        .hero p {
+            font-size: 18px;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        /* Map Section */
+        #map-container {
+            margin: 20px auto;
+            max-width: 100%;
+            height: 75vh;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 100px 30px rgba(0, 0, 0, 0.5);
+            background: #1E1E1E;
+            padding: 10px;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <nav>
+            <a href="index.html">Accueil</a>
+            <a href="about.html">À Propos</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Explorez la carte des conflits modernes</h1>
+            <p>Une vue interactive pour comprendre les enjeux géopolitiques actuels.</p>
+        </section>
+
+        <section id="map-container">
+            <div id="map"></div>
+        </section>
+    </main>
+
+
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map', {
+            center: [48.8566, 2.3522],
+            zoom: 3,
+            maxZoom: 7,
+            minZoom: 3,
+            zoomControl: true
+        });
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://carto.com/attributions">CartoDB</a> &mdash; &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>',
+        }).addTo(map);
+    </script>
+</body>
+</html>
