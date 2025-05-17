@@ -1,0 +1,309 @@
+<!-- À insérer dans <div class="conflict-main-content"> -->
+
+ 
+  <style>
+    /* Styles spécifiques pour les composants interactifs DAESH, Designed to be complémentaire et à ne pas écraser le CSS global */
+
+/* ============= 1. CARROUSEL ============= */
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  position: relative;
+  margin-bottom: 25px;
+}
+.carousel-btn {
+  background: rgba(33,33,33,0.92);
+  border: none;
+  color: #CC9900;
+  padding: 0 20px;
+  font-size: 2rem;
+  border-radius: 5px;
+  height: 160px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+}
+.carousel-btn:hover {
+  color: #e74c3c;
+  background: #191818;
+}
+.carousel-track {
+  display: flex;
+  overflow: hidden;
+  width: 350px;
+  min-height: 190px;
+  transition: transform 0.5s cubic-bezier(.77,0,.18,1);
+  background: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.22);
+  gap: 25px;
+}
+.carousel-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 350px;
+  max-width: 350px;
+  background: #181818;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.22);
+  margin: 0 2px;
+  overflow: hidden;
+}
+.carousel-item img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+  filter: grayscale(96%) brightness(0.74);
+}
+.carousel-caption {
+  font-size: 0.97rem;
+  color: #b0b0b0;
+  padding: 12px 16px 13px 14px;
+  width: 100%;
+  background: none;
+  font-style: italic;
+}
+@media (max-width: 450px) {
+  .carousel-track, .carousel-item { min-width: 250px; max-width: 250px; }
+  .carousel-btn { font-size: 1.38rem; height: 110px; }
+}
+
+/* ============= 2. FRISE CHRONOLOGIQUE INTERACTIVE ============= */
+.timeline-controls {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.timeline-btn {
+  background: #181818;
+  color: #e6e7e8;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.05rem;
+  padding: 9px 24px;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  cursor: pointer;
+  margin-bottom: 4px;
+  transition: background 0.22s, color 0.22s;
+  outline: none;
+}
+.timeline-btn:hover, .timeline-btn.active {
+  background: #222;
+  color: #e74c3c;
+}
+#timeline-event {
+  padding: 16px 10px 11px 10px;
+  font-style: italic;
+  color: #ccc;
+  background: none;
+  border-radius: 5px;
+  min-height: 40px;
+}
+
+/* ============= 3. QUIZ ============= */
+.quiz-btn {
+  background: #232323;
+  color: #e6e7e8;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  margin-right: 18px;
+  margin-bottom: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.05rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.14);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.quiz-btn:hover { background: #191818; color: #e74c3c; }
+@media (max-width: 500px) {
+  .quiz-btn { padding: 9px 11px; font-size:0.96rem; }
+}
+
+/* ============= 4. Mythe ou Réalité ? ============= */
+#myth-toggle {
+  width:auto;
+  padding:14px 22px;
+  cursor:pointer;
+  font-size:1rem;
+  margin-bottom:16px;
+}
+#myth-answer .highlight {
+  background:#fff6cc22;
+  padding:18px 20px;
+  border-left:5px solid #CC9900;
+  border-radius:5px 0 0 5px;
+  color:#b48807;
+  font-style:italic;
+}
+
+
+ </style>
+
+<!-- 1. Carrousel d’images -->
+<section class="content-section">
+  <h2><i class="fas fa-images"></i> Daesh&nbsp;: images d'une réalité sombre</h2>
+  <div class="carousel" id="carousel-daesh">
+    <button class="carousel-btn left" aria-label="Précédent">&#8678;</button>
+    <div class="carousel-track">
+      <div class="carousel-item">
+        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" alt="Ville détruite Syrie" />
+        <div class="carousel-caption">Ruines urbaines en Syrie, conséquences des combats.</div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Drapeau noir Daesh" />
+        <div class="carousel-caption">Symbole noir utilisé par Daesh, ici sur fond obscurci.</div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=600&q=80" alt="Désert irakien de nuit" />
+        <div class="carousel-caption">Paysages désertiques, zones de repli et d’entraînement.</div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://images.unsplash.com/photo-1444065381814-865dc9da92c0?auto=format&fit=crop&w=600&q=80" alt="Checkpoint urbain sous couvre-feu" />
+        <div class="carousel-caption">Checkpoints urbains sous contrôle djihadiste (image illustrative).</div>
+      </div>
+    </div>
+    <button class="carousel-btn right" aria-label="Suivant">&#8680;</button>
+  </div>
+</section>
+
+<!-- 2. Frise chronologique interactive -->
+<section class="content-section">
+  <h2><i class="fas fa-history"></i> Frise chronologique&nbsp;: Daesh</h2>
+  <div class="timeline-controls">
+    <button class="timeline-btn" data-year="2006">2006</button>
+    <button class="timeline-btn" data-year="2014">2014</button>
+    <button class="timeline-btn" data-year="2019">2019</button>
+    <button class="timeline-btn" data-year="now">Aujourd'hui</button>
+  </div>
+  <div class="timeline-event" id="timeline-event">
+    <em>Appuyez sur une date pour découvrir une étape-clé de l’évolution de Daesh.</em>
+  </div>
+</section>
+
+<!-- 3. Carte interactive (placeholder) -->
+<section class="content-section">
+  <h2><i class="fas fa-map-marked-alt"></i> Territoires sous influence</h2>
+  <div class="impact-card" style="display:flex; flex-direction:column; align-items:center; background:#222;">
+    <div style="width:100%;min-height:160px;max-width:450px;background:#dbdbdb22;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
+      <em style="color:#b0b0b0;font-size:1.05rem;">Carte interactive à intégrer ici (Leaflet.js)</em>
+    </div>
+    <span class="tag non-state">Organisation non-étatique</span>
+  </div>
+</section>
+
+<!-- 4. Quiz rapide -->
+<section class="content-section">
+  <h2><i class="fas fa-question-circle"></i> Quiz rapide&nbsp;: connaissez-vous Daesh&nbsp;?</h2>
+  <div class="impact-card" id="quiz-daesh">
+    <div class="quiz-question">
+      Quelle est l’année de la proclamation du "califat" par Daesh ?
+    </div>
+    <div class="quiz-choices">
+      <button class="quiz-btn" data-correct="false">2006</button>
+      <button class="quiz-btn" data-correct="true">2014</button>
+      <button class="quiz-btn" data-correct="false">2018</button>
+    </div>
+    <div class="quiz-feedback" style="margin-top:12px;"></div>
+  </div>
+</section>
+
+<!-- 5. Mythe ou Réalité ? -->
+<section class="content-section">
+  <h2><i class="fas fa-lightbulb"></i> Mythe ou Réalité&nbsp;?</h2>
+  <button class="impact-card" id="myth-toggle" style="width:auto;padding:14px 22px;cursor:pointer;font-size:1rem;margin-bottom:16px;">
+    "Daesh contrôle encore de vastes territoires en 2024"&nbsp;: Vrai ou Faux&nbsp;?
+  </button>
+  <div id="myth-answer" style="display:none;">
+    <div class="highlight" style="background:#fff6cc22;padding:18px 20px;border-left:5px solid #CC9900;border-radius:5px 0 0 5px;color:#b48807;font-style:italic;">
+      <strong>Faux&nbsp;:</strong> En 2024, Daesh ne contrôle plus de territoire significatif. L’organisation agit désormais surtout via des réseaux clandestins et des actions isolées.
+    </div>
+  </div>
+</section>
+
+<!-- JS Vanilla en toute fin -->
+<script>
+// Carrousel Logic
+(function() {
+  const track = document.querySelector('#carousel-daesh .carousel-track');
+  const items = Array.from(track.children);
+  let position = 0;
+  const btnLeft = document.querySelector('#carousel-daesh .carousel-btn.left');
+  const btnRight = document.querySelector('#carousel-daesh .carousel-btn.right');
+  function updateCarousel() {
+    track.style.transform = `translateX(-${position * 100}%)`;
+  }
+  btnLeft.onclick = () => { position = (position - 1 + items.length) % items.length; updateCarousel(); };
+  btnRight.onclick = () => { position = (position + 1) % items.length; updateCarousel(); };
+  updateCarousel();
+})();
+
+// Timeline interactive
+(function() {
+  const timelineTexts = {
+    '2006': '<em>2006</em>&nbsp;: Fondation de l’État islamique d’Irak (EII), ancêtre de Daesh, consécutive à la guerre d’Irak.',
+    '2014': '<em>2014</em>&nbsp;: Daesh proclame le "califat" à Mossoul, s’empare de larges portions de l’Irak et de la Syrie.',
+    '2019': '<em>2019</em>&nbsp;: Chute de Baghouz&nbsp;: fin officielle du "califat" territorial après une offensive des forces locales et de la coalition internationale.',
+    'now': '<em>Aujourd’hui</em>&nbsp;: Daesh n’a plus de territoire significatif, mais conserve des cellules actives et revendique des attaques dans le monde.'
+  };
+  const btns = document.querySelectorAll('.timeline-btn');
+  const eventDiv = document.getElementById('timeline-event');
+  btns.forEach(btn => {
+    btn.onclick = function() {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      eventDiv.innerHTML = timelineTexts[btn.getAttribute('data-year')] || '';
+    };
+  });
+})();
+
+// Quiz
+(function() {
+  const quiz = document.getElementById('quiz-daesh');
+  const buttons = quiz.querySelectorAll('.quiz-btn');
+  const feedback = quiz.querySelector('.quiz-feedback');
+  let answered = false;
+  buttons.forEach(btn => {
+    btn.onclick = function() {
+      if(answered) return;
+      answered = true;
+      buttons.forEach(b => b.disabled = true);
+      if(btn.getAttribute('data-correct') === 'true') {
+        btn.style.backgroundColor = '#19ba67';
+        btn.style.color = '#fff';
+        feedback.textContent = 'Bonne réponse ! Le califat a été proclamé en 2014.';
+        feedback.style.color = '#19ba67';
+      } else {
+        btn.style.backgroundColor = '#ee6872';
+        btn.style.color = '#fff';
+        feedback.textContent = 'Incorrect. Le califat a été proclamé en 2014.';
+        feedback.style.color = '#ee6872';
+      }
+      feedback.style.fontStyle = 'italic';
+    };
+  });
+})();
+
+// Mythe ou réalité
+(() => {
+  const btn = document.getElementById('myth-toggle');
+  const answer = document.getElementById('myth-answer');
+  let visible = false;
+  btn.onclick = function() {
+    visible = !visible;
+    answer.style.display = visible ? 'block' : 'none';
+  };
+})();
+</script>
+
+<!-- Lien à ajouter dans le <head> ou juste avant ce bloc :
+<link rel="stylesheet" href="conflict-detail-daesh-interactive.css">
+-->
+
+<!-- Styles spécifiques pour composants interactifs MAIS strictement conformes au style existant -->
+<!-- Le bloc <style> interne a été supprimé, le CSS est désormais dans le fichier conflict-detail-daesh-interactive.css -->

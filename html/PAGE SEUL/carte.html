@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../images/icone.ico" />
+    <title>NSIIMPACT - Carte des Conflits Mondiaux</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+
+    <!-- Styles personnalisés -->
+    <link rel="stylesheet" href="../../css/styles.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Titre principal -->
+    <h1 id="map-title">NSI<span style="color: #CC9900;">IMPACT</span> - Carte des Conflits Armés</h1>
+
+    <!-- Conteneur de la carte Leaflet -->
+    <div id="map"></div>
+
+    <!-- Boutons de contrôle -->
+    <button id="about-button" class="control-button">À Propos <i class="fas fa-info-circle"></i></button>
+    <button id="conflicts-button" class="control-button" onclick="window.location.href='../../html/PAGE SEUL/liste-conflict.html'">Liste des Conflits <i class="fas fa-fire"></i></button>
+
+    <!-- Nouveau bouton d'accueil centré en bas -->
+    <button id="home-button-center" onclick="window.location.href='../../html/ACCUEIL/home.html'">
+        <i class="fas fa-home"></i> Retour à l'Accueil
+    </button>
+
+    <!-- Panneau de filtres -->
+    <div id="filters-panel" class="panel">
+        <h3>Filtres de Conflits</h3>
+        <p class="description">Utilisez ces filtres pour affiner l'affichage des données de conflits sur la carte.</p>
+
+        <div class="filter-section">
+            <h4>Régions</h4>
+            <div class="checkbox-group" id="region-filters">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="region-africa" class="region-checkbox" data-region="Afrique" checked>
+                    <label for="region-africa">Afrique</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="region-asia" class="region-checkbox" data-region="Asie" checked>
+                    <label for="region-asia">Asie</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="region-europe" class="region-checkbox" data-region="Europe" checked>
+                    <label for="region-europe">Europe</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="region-middle-east" class="region-checkbox" data-region="Moyen-Orient" checked>
+                    <label for="region-middle-east">Moyen-Orient</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="region-americas" class="region-checkbox" data-region="Amériques" checked>
+                    <label for="region-americas">Amériques</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h4>Types de Conflits</h4>
+            <div class="checkbox-group" id="type-filters">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="type-state-based" class="type-checkbox" data-type="State-based" checked>
+                    <label for="type-state-based">Conflits Étatiques</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="type-non-state" class="type-checkbox" data-type="Non-state" checked>
+                    <label for="type-non-state">Conflits Non-étatiques</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="type-one-sided" class="type-checkbox" data-type="One-sided" checked>
+                    <label for="type-one-sided">Violence Unilatérale</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h4>Période (2020-2025)</h4>
+            <div class="date-range-display" id="date-range-display">2020 - 2025</div>
+            <div class="slider-container">
+                <input type="range" min="2020" max="2025" value="2025" class="slider" id="date-slider">
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h4>Affichage</h4>
+            <div class="checkbox-item fatalities-toggle">
+                <input type="checkbox" id="show-fatalities" checked>
+                <label for="show-fatalities">Afficher la taille en fonction du nombre de victimes</label>
+            </div>
+        </div>
+
+        <div class="filter-summary">
+            <h4>Résumé des Filtres Actifs</h4>
+            <div><span class="summary-label">Régions :</span> <span id="regions-summary">Toutes</span></div>
+            <div><span class="summary-label">Types :</span> <span id="types-summary">Tous</span></div>
+            <div><span class="summary-label">Année :</span> <span id="year-summary">2025</span></div>
+        </div>
+    </div>
+    <!-- Légende de la carte -->
+    <div id="map-legend">
+
+
+        <div class="legend-section">
+            <h4>Intensité (Victimes)</h4>
+            <div class="legend-item">
+            <div class="legend-circle" style="width: 20px; height: 20px; background-color: #c10000;"></div>
+            <span class="legend-label">Élevée (&gt;1000)</span>
+            </div>
+            <div class="legend-item">
+            <div class="legend-circle" style="width: 14px; height: 14px; background-color: #ff9900;"></div>
+            <span class="legend-label">Moyenne (100-1000)</span>
+            </div>
+            <div class="legend-item">
+            <div class="legend-circle" style="width: 8px; height: 8px; background-color: #ffe066;"></div>
+            <span class="legend-label">Faible (&lt;100)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal À Propos -->
+    <div id="about-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>À Propos de NSIIMPACT</h2>
+            <p>Bienvenue sur la carte interactive des conflits armés mondiaux de NSIIMPACT. Cet outil permet de visualiser et d'analyser les conflits armés actuels et récents à travers le monde.</p>
+
+            <h3>Données et Sources</h3>
+            <p>Nos données proviennent de plusieurs sources reconnues, notamment :</p>
+            <ul>
+                <li>ACLED (Armed Conflict Location & Event Data Project)</li>
+                <li>UCDP (Programme de données sur les conflits d'Uppsala)</li>
+                <li>Rapports d'organisations internationales</li>
+            </ul>
+
+            <h3>Catégories de Conflits</h3>
+            <p>Nous classons les conflits en trois catégories principales :</p>
+            <ul>
+                <li><strong>Conflits Étatiques</strong> : Affrontements impliquant au moins un gouvernement.</li>
+                <li><strong>Conflits Non-étatiques</strong> : Affrontements entre groupes organisés non gouvernementaux.</li>
+                <li><strong>Violence Unilatérale</strong> : Attaques contre des civils par des groupes armés ou des forces gouvernementales.</li>
+            </ul>
+
+            <h3>Comment Utiliser Cette Carte</h3>
+            <ul>
+                <li>Utilisez les filtres pour affiner l'affichage par région, type de conflit et période.</li>
+                <li>Cliquez sur les marqueurs pour obtenir des informations détaillées sur chaque conflit.</li>
+                <li>Utilisez le curseur de date pour visualiser l'évolution des conflits au fil du temps.</li>
+            </ul>
+
+            <p class="note">Note : Cette application est conçue à des fins éducatives et de recherche. Bien que nous nous efforcions de maintenir des données précises et à jour, certaines informations peuvent être incomplètes ou nécessiter des mises à jour.</p>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+    <!-- Scripts -->
+    <script src="../../js/conflict-data.js"></script>
+    <script src="../../js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../images/icone.ico" />
+
+    <title>NSIIMPACT - Analyse Géopolitique des Conflits Mondiaux</title>
+    <link rel="stylesheet" href="../../css/complete-home.css">
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+Pro:wght@400;600&family=Crimson+Text:ital@0;1&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <header>
+        <div class="logo">
+            <span class="logo-text">NSI<span class="highlight">IMPACT</span></span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../../html/PAGE SEUL/carte.html" class="nav-btn"><i class="fas fa-map-marked-alt"></i> Carte Analytique</a></li>
+                <li><a href="../../html/PAGE SEUL/liste-conflict.html" class="nav-btn"><i class="fas fa-fire"></i> Conflits</a></li>
+                <li><a href="#methodology" class="nav-btn"><i class="fas fa-microscope"></i> Méthodologie</a></li>
+                <li><a href="#publications" class="nav-btn"><i class="fas fa-book"></i> Analyses</a></li>
+                <li><a href="#contact" class="nav-btn"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="academic-tag">Projet Sciences Po - Géopolitique & Informatique</div>
+                <h1 class="hero-title">NSI<span class="highlight">IMPACT</span></h1>
+                <p class="hero-subtitle">Analyse géopolitique et visualisation interactive des conflits internationaux actuels</p>
+                <div class="blinking-dot"></div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="conflict-count">50</span>
+                        <span class="stat-label">Zones de Conflits</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="region-count">6</span>
+                        <span class="stat-label">Régions Stratégiques</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="country-count">70</span>
+                        <span class="stat-label">États Impliqués</span>
+                    </div>
+                </div>
+                <div class="cta-buttons">
+                    <a href="../../html/PAGE SEUL/carte.html" class="cta-button primary">Explorer la Carte <i class="fas fa-arrow-right"></i></a>
+                    <a href="#methodology" class="cta-button secondary">Découvrir le Projet <i class="fas fa-graduation-cap"></i></a>
+                </div>
+            </div>
+
+            <div class="map-preview">
+                <div class="map-preview-overlay"></div>
+                <div class="coordinates-overlay"></div>
+                <div class="hotspot" style="--x: 70%; --y: 35%;" data-region="Moyen-Orient"></div>
+                <div class="hotspot" style="--x: 53%; --y: 23%;" data-region="Europe"></div>
+                <div class="hotspot" style="--x: 57%; --y: 45%;" data-region="Afrique"></div>
+                <div class="map-annotations">
+                    <div class="annotation" style="--x: 60%; --y: 30%;">Zones de tensions géopolitiques</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="section-content">
+                <div class="section-header">
+                    <div class="section-tag">À propos du projet</div>
+                    <h2>NSIIMPACT : Une Approche <span class="highlight">Innovante des Conflits</span></h2>
+                </div>
+                <div class="section-quote">
+                    <blockquote>
+                        "Combinant science politique, l'étude des conflicts et science des données pour mieux comprendre les dynamiques des conflits contemporains."
+                    </blockquote>
+                    <cite>— Projet Sciences Po</cite>
+                </div>
+                <p class="section-description">NSIIMPACT est un projet étudiant né de la passion pour les conflicts et l'informatique. À l'intersection de ces deux disciplines, nous analysons les conflits armés et les tensions internationales en utilisant des outils numériques avancés pour visualiser et contextualiser les enjeux stratégiques mondiaux.</p>
+
+                <div class="feature-cards">
+                    <div class="feature-card">
+                        <div class="icon-container">
+                            <i class="fas fa-globe-europe"></i>
+                        </div>
+                        <h3>Analyse Géopolitique</h3>
+                        <p>Cartographie interactive des zones de conflits avec contextualisation des enjeux politiques, économiques et stratégiques.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="icon-container">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Visualisation de Données</h3>
+                        <p>Représentation graphique des données pour mieux saisir les tendances et l'évolution des conflits contemporains.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="icon-container">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Sciences & Technologies</h3>
+                        <p>Application des compétences informatiques pour créer des outils d'analyse innovants au service de la compréhension géopolitique.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="methodology" class="methodology-section">
+            <div class="section-content">
+              <div class="section-header">
+                <div class="section-tag">Cadre méthodologique</div>
+                <h2>Approche & <span class="highlight">Sources d'Analyse</span></h2>
+              </div>
+              <p class="section-description">
+                Notre méthodologie s'appuie sur un schéma rigoureux de collecte et d'analyse de données, combinant sources primaires et secondaires avec une approche critique et contextuelle :
+              </p>
+          
+              <div class="methodology-content">
+                <ul class="methodology-list" style="list-style: none; padding-left: 0;">
+                  <li style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 16px;">
+                    <i class="fas fa-database" style="font-size: 18px; color: #2c3e50; margin-top: 4px;"></i>
+                    <div>
+                      <strong>Collecte de Données :</strong> Agrégation systématique d'informations à partir d'ACLED (Armed Conflict Location & Event Data Project), UCDP, rapports diplomatiques et sources journalistiques vérifiées.
+                    </div>
+                  </li>
+          
+                  <li style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 16px;">
+                    <i class="fas fa-globe-europe" style="font-size: 18px; color: #2c3e50; margin-top: 4px;"></i>
+                    <div>
+                      <strong>Catégorisation des Conflits :</strong>
+                      <ul style="margin-top: 5px;">
+                        <li><span class="type state-based">Conflit Étatique</span> : Confrontation entre un acteur étatique et un groupe non-étatique (milices, rebelles...)</li>
+                        <li><span class="type non-state">Organisation Terroriste</span> : Affrontements entre groupes armés sans implication directe d’un État.</li>
+                      </ul>
+                    </div>
+                  </li>
+          
+                  <li style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 16px;">
+                    <i class="fas fa-code" style="font-size: 18px; color: #2c3e50; margin-top: 4px;"></i>
+                    <div>
+                      <strong>Validation Scientifique :</strong> Nous utilisons Pandas, une bibliothèque Python incontournable, pour manipuler et analyser nos données. Cela nous permet d’identifier des tendances clés et de fournir des statistiques précises pour éclairer nos analyses.
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="cta-buttons" style="display: flex; justify-content: center; align-items: center; margin-top: 40px;">
+                <a href="exemple-information-etape.html" class="cta-button primary" style="font-weight: 700;">
+                    Exemple De Traitement D'une Information
+                </a>
+                </a>
+              </div>
+              
+              
+              
+              
+</section>
+
+  
+          
+        
+
+        <section id="publications" class="publications-section">
+            <div class="section-content">
+                <div class="section-header">
+                    <div class="section-tag">Science politique & données numériques</div>
+                    <h2>Recherches & <span class="highlight">Applications Innovantes</span></h2>
+                </div>
+                <p class="section-description">Découvrez comment l'informatique et la science des données transforment la recherche en sciences politiques, avec des applications concrètes qui démontrent l'importance des compétences numériques dans l'analyse géopolitique :</p>
+
+                <div class="publications-grid">
+                    <div class="publication-card">
+                        <div class="publication-type">Groupe de Recherche</div>
+                        <h3>Science politique du numérique (SPN) – AFSP</h3>
+                        <p>Le numériqué modifie fondamentalement les approches de recherche en science politique et permet d'interroger ses effets sur la participation politique, le militantisme, et l'organisation des partis politiques.</p>
+                        <div class="publication-meta">
+                            <span><i class="far fa-calendar-alt"></i> 2023-2024</span>
+                            <a href="https://www.afsp.info/activites/groupes-de-projet/groupes-recherche-2023-2024/science-politique-du-numerique/" class="publication-link" target="_blank">Explorer <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="publication-card">
+                        <div class="publication-type">Étude</div>
+                        <h3>Que peuvent apporter le numérique et les « big data » à la politique comparée ?</h3>
+                        <p>Une analyse des nouvelles méthodes permettant d'exploiter des volumes importants de données pour faire avancer la recherche en politique comparée.</p>
+                        <div class="publication-meta">
+                            <span><i class="far fa-calendar-alt"></i> 2022</span>
+                            <a href="https://www.cairn.info/revue-internationale-de-politique-comparee-2022-2-page-31.htm" class="publication-link" target="_blank">Explorer <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="publication-card">
+                        <div class="publication-type">Recherche</div>
+                        <h3>Deep Learning for Political Science</h3>
+                        <p>Comment les méthodes d'apprentissage profond peuvent être appliquées à la science politique pour analyser de grands volumes de données textuelles et découvrir de nouveaux insights.</p>
+                        <div class="publication-meta">
+                            <span><i class="far fa-calendar-alt"></i> Mai 2020</span>
+                            <a href="https://arxiv.org/abs/2005.06540" class="publication-link" target="_blank">Explorer <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="section-content">
+                <div class="section-header">
+                    <div class="section-tag">Correspondance</div>
+                    <h2>Contactez <span class="highlight">NSIIMPACT</span></h2>
+                </div>
+                <p class="section-description">Pour toute demande d'information, proposition de collaboration ou consultation académique :</p>
+
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>amineelzouiri@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Lycée Newton</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+33 7 69 87 13 21</span>
+                        </div>
+                        <div class="social-links">
+                            <a href="https://github.com/Aminecool15" class="social-link"><i class="fab fa-github"></i></a>
+                            <a href="https://www.instagram.com/amine__zri/" class="social-link"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Votre Nom" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Votre Email" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="subject" name="subject">
+                                <option value="">Objet de votre message</option>
+                                <option value="collaboration">Proposition de collaboration</option>
+                                <option value="research">Demande d'information académique</option>
+                                <option value="media">Contact presse/média</option>
+                                <option value="other">Autre demande</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Votre Message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Envoyer la Demande</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="logo-text">NSI<span class="highlight">IMPACT</span></span>
+                <p>Projet Étudiant de Sciences Po</p>
+            </div>
+
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="../../html/PAGE SEUL/carte.html">Carte Analytique</a></li>
+                        <li><a href="#about">À Propos</a></li>
+                        <li><a href="#methodology">Méthodologie</a></li>
+                        <li><a href="#publications">Analyses</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="link-group">
+                    <h4>Ressources</h4>
+                    <ul>
+                        <li><a href="#">Centre de Documentation</a></li>
+                        <li><a href="#">Base de Données</a></li>
+                        <li><a href="#">Archives Académiques</a></li>
+                        <li><a href="#">Programmes de Recherche</a></li>
+                    </ul>
+                </div>
+
+                <div class="link-group">
+                    <h4>Informations</h4>
+                    <ul>
+                        <li><a href="#">Politique de Confidentialité</a></li>
+                        <li><a href="#">Mentions Légales</a></li>
+                        <li><a href="#">Déontologie</a></li>
+                        <li><a href="#">Financement</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 NSIIMPACT. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Particles.js pour l'effet de fond -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="/js/home.js"></script>
+</body>
+</html>

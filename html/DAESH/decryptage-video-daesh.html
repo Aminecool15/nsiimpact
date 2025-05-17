@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyse de la vidéo de propagande Daesh - Abu Tamimah</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="/css/complete-home.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="../../images/icone.ico" />
+    <style>
+        /* Styles globaux */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #e6e7e8;
+            background-color: #0a0a0a;
+            line-height: 1.6;
+            position: relative;
+            font-weight: 600;
+        }
+
+        .highlight {
+            color: #CC9900;
+            margin-left: 5px;
+        }
+
+        .dark-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Styles de la timeline */
+        .timeline-container {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 120px; /* Ajusté pour la nouvelle position des dates */
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, #CC9900 0%, #AA8800 100%);
+            border-radius: 5px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+
+        .timeline-date {
+            width: 120px;
+            text-align: right;
+            padding-right: 20px;
+            position: relative;
+            top: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #CC9900;
+            font-size: 1.1rem;
+            background-color: rgba(20, 20, 20, 0.9);
+            padding: 8px 12px;
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(204, 153, 0, 0.3);
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            flex-grow: 1;
+            position: relative;
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 3px solid #CC9900;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(204, 153, 0, 0.3);
+            background-color: rgba(40, 40, 40, 0.8);
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: -13px;
+            width: 24px;
+            height: 24px;
+            background-color: #AA8800;
+            border-radius: 50%;
+            border: 4px solid #0a0a0a;
+            box-shadow: 0 0 0 4px rgba(204, 153, 0, 0.3);
+            z-index: 2;
+        }
+
+        .timeline-content h4 {
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 12px;
+            color: #e6e7e8;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .timeline-category {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            margin-right: 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .category-militaire {
+            background-color: rgba(170, 136, 0, 0.2);
+            color: #AA8800;
+            border: 1px solid rgba(170, 136, 0, 0.5);
+        }
+
+        .category-politique {
+            background-color: rgba(204, 153, 0, 0.2);
+            color: #CC9900;
+            border: 1px solid rgba(204, 153, 0, 0.5);
+        }
+
+        .category-propagande {
+            background-color: rgba(221, 170, 0, 0.2);
+            color: #DDAA00;
+            border: 1px solid rgba(221, 170, 0, 0.5);
+        }
+
+        .category-attentats {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+            border: 1px solid rgba(231, 76, 60, 0.5);
+        }
+
+        .category-international {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: #3498db;
+            border: 1px solid rgba(52, 152, 219, 0.5);
+        }
+
+        .category-territoire {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            border: 1px solid rgba(46, 204, 113, 0.5);
+        }
+
+        .timeline-description {
+            color: #b0b0b0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        /* Nouveaux styles pour les segments améliorés */
+        .segment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .segment-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(204, 153, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #CC9900;
+            font-size: 1.2rem;
+        }
+
+        .segment-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            color: #e6e7e8;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .segment-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .segment-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .analysis-card {
+            background-color: rgba(40, 40, 40, 0.5);
+            border-radius: 6px;
+            padding: 15px;
+            border-left: 3px solid rgba(204, 153, 0, 0.5);
+            animation: slideIn 0.4s ease forwards;
+        }
+
+        .analysis-card h5 {
+            font-family: 'Montserrat', sans-serif;
+            color: #CC9900;
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+        }
+
+        .analysis-card h5 i {
+            font-size: 1rem;
+        }
+
+        .analysis-card p {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .techniques-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .technique-tag {
+            background-color: rgba(204, 153, 0, 0.1);
+            color: #CC9900;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(204, 153, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .technique-tag i {
+            font-size: 0.7rem;
+        }
+
+        /* Modals */
+        .modal {
+            transition: all 0.3s ease;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background-color: rgba(20, 20, 20, 0.95);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 40px;
+            transform: scale(0.95);
+            transition: all 0.4s ease;
+            border-left: 4px solid #CC9900;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(204, 153, 0, 0.3);
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: #e6e7e8;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            color: #b0b0b0;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .modal-close:hover {
+            color: #CC9900;
+            background-color: rgba(204, 153, 0, 0.1);
+        }
+
+        .modal-body {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .modal-body {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .modal-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-image:hover {
+            transform: scale(1.02);
+        }
+
+        .modal-text {
+            color: #b0b0b0;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .modal-text li {
+            margin-bottom: 12px;
+        }
+
+        .modal-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(204, 153, 0, 0.2);
+            font-size: 0.95rem;
+            color: #999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 500;
+        }
+
+        /* Styles supplémentaires pour notre contenu */
+        header {
+            background-color: #0a0a0a;
+            color: #e6e7e8;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid rgba(204, 153, 0, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #CC9900;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(204, 153, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+            color: #b0b0b0;
+            font-weight: 500;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .section {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border-left: 3px solid #CC9900;
+        }
+
+        .section-title {
+            color: #CC9900;
+            position: relative;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: #AA8800;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .info-card {
+            background-color: rgba(40, 40, 40, 0.8);
+            padding: 1.5rem;
+            border-radius: 6px;
+            border-left: 4px solid #CC9900;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(204, 153, 0, 0.3);
+        }
+
+        .info-card i {
+            font-size: 1.5rem;
+            color: #CC9900;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card h3 {
+            color: #e6e7e8;
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .info-card p {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .danger-zone {
+            background-color: rgba(204, 0, 0, 0.2);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 3rem 0;
+            border: 1px solid rgba(204, 0, 0, 0.5);
+        }
+
+        .danger-zone h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .danger-list {
+            list-style-type: none;
+        }
+
+        .danger-list li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+            color: #e6e7e8;
+            font-weight: 500;
+        }
+
+        .danger-list li::before {
+            content: '⚠️';
+            position: absolute;
+            left: 0;
+        }
+
+        .quiz-container {
+            background-color: rgba(30, 30, 30, 0.7);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-top: 2rem;
+            border-left: 3px solid #CC9900;
+        }
+
+        .quiz-question {
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-question h3 {
+            color: #e6e7e8;
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .quiz-option {
+            background-color: rgba(40, 40, 40, 0.8);
+            border: 2px solid rgba(204, 153, 0, 0.3);
+            border-radius: 6px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            color: #b0b0b0;
+            font-weight: 500;
+        }
+
+        .quiz-option:hover {
+            background-color: rgba(60, 60, 60, 0.8);
+            border-color: rgba(204, 153, 0, 0.5);
+        }
+
+        .quiz-option.correct {
+            background-color: rgba(40, 167, 69, 0.3);
+            color: #e6e7e8;
+            border-color: rgba(40, 167, 69, 0.7);
+        }
+
+        .quiz-option.incorrect {
+            background-color: rgba(220, 53, 69, 0.3);
+            color: #e6e7e8;
+            border-color: rgba(220, 53, 69, 0.7);
+        }
+
+        .quiz-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            display: none;
+            color: #e6e7e8;
+            font-weight: 500;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .feedback-correct {
+            background-color: rgba(40, 167, 69, 0.2);
+            border-left: 4px solid rgba(40, 167, 69, 0.7);
+        }
+
+        .feedback-incorrect {
+            background-color: rgba(220, 53, 69, 0.2);
+            border-left: 4px solid rgba(220, 53, 69, 0.7);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: rgba(204, 153, 0, 0.7);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn:hover {
+            background-color: rgba(204, 153, 0, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(204, 153, 0, 0.3);
+        }
+
+        footer {
+            background-color: #0a0a0a;
+            color: #b0b0b0;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(204, 153, 0, 0.3);
+        }
+
+        footer p {
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .section-title { font-size: 1.7rem; }
+            .header-content { padding: 0 1rem; }
+            .section { padding: 1.5rem; }
+            .info-grid { grid-template-columns: 1fr; }
+            .modal-body { grid-template-columns: 1fr; }
+            
+            .timeline-item {
+                flex-direction: column;
+            }
+            
+            .timeline-date {
+                width: 100%;
+                text-align: left;
+                margin-bottom: 10px;
+                margin-right: 0;
+            }
+            
+            .timeline-container::before {
+                left: 15px;
+            }
+            
+            .timeline-content::before {
+                left: -13px;
+            }
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 25px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 0;
+        }
+        
+        .cta-button.primary {
+            background-color: #CC9900;
+            color: #0a0f14;
+            border: none;
+        }
+        
+        .cta-button.secondary {
+            background-color: transparent;
+            color: #e6e7e8;
+            border: 1px solid #CC9900;
+        }
+        
+        .cta-button i {
+            margin-left: 10px;
+            font-size: 0.85rem;
+        }
+        
+        .cta-button.primary:hover {
+            background-color: #e6e7e8;
+            color: #0a0f14;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-button.secondary:hover {
+            background-color: rgba(204, 153, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="dark-overlay"></div>
+    
+    <header class="fade-in">
+        <div class="header-content">
+            <h1>🎥 ANALYSE COMPLÈTE DE LA VIDÉO DE PROPAGANDE DE DAESH</h1>
+            <p class="subtitle">Abu Tamimah - Décryptage des techniques de manipulation</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Section Informations générales -->
+        <section class="section fade-in">
+            <h2 class="section-title">📌 INFORMATIONS GÉNÉRALES</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Durée</h3>
+                    <p><strong>1 minute 15 secondes</strong> - Format court pour maximiser l'impact</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-language"></i>
+                    <h3>Langue</h3>
+                    <p><strong>Français</strong> (accent d'origine maghrébine) - Ciblage des francophones</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Lieu</h3>
+                    <p><strong>Zone désertique</strong> non identifiable (vraisemblablement Syrie ou Irak)</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-user-secret"></i>
+                    <h3>Protagoniste</h3>
+                    <p><strong>Individu masqué</strong> (partiellement reconnaissable) se présentant comme "Abu Tamimah", originaire de France.</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Objectif explicite</h3>
+                    <p><strong>Convaincre des francophones musulmans</strong> de rejoindre Daesh</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>Objectif implicite</h3>
+                    <p><strong>Justifier la violence</strong>, glorifier le jihad armé, exercer une pression émotionnelle sur les cibles jeunes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Analyse des segments -->
+        <section class="section slide-up">
+            <h2 class="section-title">🧠 DÉCOUPAGE ET ANALYSE DE LA VIDÉO</h2>
+            
+            <div class="timeline-container">
+                <!-- Segment 1 -->
+                <div class="timeline-item">
+                    <span class="timeline-date">00:00 – 00:12</span>
+                    <div class="timeline-content">
+                        <span class="timeline-category category-propagande">Propagande</span>
+                        
+                        <div class="segment-header">
+                            <div class="segment-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h3 class="segment-title">PRÉSENTATION</h3>
+                        </div>
+                        
+                        <p class="timeline-description"><strong>Abu Tamimah se présente brièvement, en français : "Je suis ton frère Abu Tamimah, originaire de France."</strong></p>
+                        
+                        <div class="segment-content">
+                            <div class="analysis-card">
+                                <h5><i class="fas fa-search"></i> ANALYSE CRITIQUE DU DISCOURS</h5>
+                                <p><strong>Stratégie d'identification.</strong> Il se positionne comme "frère", un proche, un modèle. Il évite tout discours religieux à ce stade.</p>
+                            </div>
+                            
+                            <div class="analysis-card">
+                                <h5><i class="fas fa-tools"></i> TECHNIQUES DE PROPAGANDE</h5>
+                                <p><strong>Identification et normalisation</strong> pour établir une connexion avec la cible.</p>
+                                <div class="techniques-list">
+                                    <span class="technique-tag"><i class="fas fa-user-friends"></i> Normalisation</span>
+                                    <span class="technique-tag"><i class="fas fa-check-circle"></i> Crédibilisation</span>
+                                    <span class="technique-tag"><i class="fas fa-globe-europe"></i> Connexion culturelle</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Segment 2 -->
+                <div class="timeline-item">
+                    <span class="timeline-date">00:12 – 00:27</span>
+                    <div class="timeline-content">
+                        <span class="timeline-category category-politique">Religieux</span>
+                        
+                        <div class="segment-header">
+                            <div class="segment-icon">
+                                <i class="fas fa-quran"></i>
+                            </div>
+                            <h3 class="segment-title">ARGUMENT RELIGIEUX</h3>
+                        </div>
+                        
+                        <p class="timeline-description"><strong>Il invoque la religion : "Allah nous a ordonné de combattre pour Sa cause..."</strong></p>
+                        
+                        <div class="segment-content">
+                            <div class="analysis-card">
+                                <h5><i class="fas fa-search"></i> ANALYSE CRITIQUE DU DISCOURS</h5>
+                                <p><strong>Il invoque une autorité absolue</strong> pour justifier la violence. Aucun contexte, aucune nuance théologique.</p>
+                            </div>
+                            
+                            <div class="analysis-card">
+                                <h5><i class="fas fa-tools"></i> TECHNIQUES DE PROPAGANDE</h5>
+                                <p><strong>Utilisation détournée</strong> de références religieuses pour légitimer l'action violente.</p>
+                                <div class="techniques-list">
+                                    <span class="technique-tag"><i class="fas fa-gavel"></i> Appel à l'autorité</span>
+                                    <span class="technique-tag"><i class="fas fa-book"></i> Détournement doctrinal</span>
+                                    <span class="technique-tag"><i class="fas fa-balance-scale"></i> Légitimation</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Segment 3 -->
+                <div class="timeline-item">
+                    <span class="timeline-date">00:27 – 00:45</span>
+                    <div class="timeline-content">
+                        <span class="timeline-category category-militaire">Glorification</span>
+                        
+                        <div class="segment-header">
+                            <div class="segment-icon">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <h3 class="segment-title">GLORIFICATION DES COMBATTANTS</h3>
+                        </div>
+                        
+                        <p class="timeline-description"><strong>Il glorifie ceux qui se battent, les qualifie de "vrais croyants".</strong></p>
+                        
+                        <div class="segment-content">
+                            <div class="analysis-card">
+                                <h5><i class="fas fa-search"></i> ANALYSE CRITIQUE DU DISCOURS</h5>
+                                <p><strong>Il valorise l'engagement armé</strong> comme étant la preuve ultime de foi. Il oppose implicitement ceux qui restent passifs.</p>
+                            </div>
+                            
+                            <div class="analysis-card">
+                                <h5><i class="fas fa-tools"></i> TECHNIQUES DE PROPAGANDE</h5>
+                                <p><strong>Création d'une hiérarchie morale</strong> où l'action violente est présentée comme supérieure.</p>
+                                <div class="techniques-list">
+                                    <span class="technique-tag"><i class="fas fa-trophy"></i> Glorification</span>
+                                    <span class="technique-tag"><i class="fas fa-divide"></i> Polarisation</span>
+                                    <span class="technique-tag"><i class="fas fa-star"></i> Idéalisation</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Segment 4 -->
+                <div class="timeline-item">
+                    <span class="timeline-date">00:45 – 01:00</span>
+                    <div class="timeline-content">
+                        <span class="timeline-category category-attentats">Victimisation</span>
+                        
+                        <div class="segment-header">
+                            <div class="segment-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <h3 class="segment-title">DÉNONCIATION DES "MÉCRÉANTS"</h3>
+                        </div>
+                        
+                        <p class="timeline-description"><strong>Il dénonce les "mécréants" qui "tuent nos frères", et parle d'un devoir de réaction.</strong></p>
+                        
+                        <div class="segment-content">
+                            <div class="analysis-card">
+                                <h5><i class="fas fa-search"></i> ANALYSE CRITIQUE DU DISCOURS</h5>
+                                <p><strong>Stratégie d'inversion morale</strong> : les agresseurs deviennent les victimes. Il généralise un ennemi abstrait.</p>
+                            </div>
+                            
+                            <div class="analysis-card">
+                                <h5><i class="fas fa-tools"></i> TECHNIQUES DE PROPAGANDE</h5>
+                                <p><strong>Construction d'un récit victimisant</strong> pour justifier la violence comme légitime défense.</p>
+                                <div class="techniques-list">
+                                    <span class="technique-tag"><i class="fas fa-sync-alt"></i> Inversion morale</span>
+                                    <span class="technique-tag"><i class="fas fa-heart-broken"></i> Victimisation</span>
+                                    <span class="technique-tag"><i class="fas fa-bullseye"></i> Désignation de l'ennemi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Segment 5 -->
+                <div class="timeline-item">
+                    <span class="timeline-date">01:00 – 01:15</span>
+                    <div class="timeline-content">
+                        <span class="timeline-category category-propagande">Chantage</span>
+                        
+                        <div class="segment-header">
+                            <div class="segment-icon">
+                                <i class="fas fa-hand-holding-usd"></i>
+                            </div>
+                            <h3 class="segment-title">CULPABILISATION FINALE</h3>
+                        </div>
+                        
+                        <p class="timeline-description"><strong>Il termine sur une note culpabilisante : "Le Jour du Jugement, que répondras-tu à Allah ?"</strong></p>
+                        
+                        <div class="segment-content">
+                            <div class="analysis-card">
+                                <h5><i class="fas fa-search"></i> ANALYSE CRITIQUE DU DISCOURS</h5>
+                                <p><strong>Mise en scène de la peur divine</strong>, chantage spirituel. L'individu est sommé de choisir entre héroïsme ou lâcheté religieuse.</p>
+                            </div>
+                            
+                            <div class="analysis-card">
+                                <h5><i class="fas fa-tools"></i> TECHNIQUES DE PROPAGANDE</h5>
+                                <p><strong>Appel à la peur eschatologique</strong> pour forcer l'engagement.</p>
+                                <div class="techniques-list">
+                                    <span class="technique-tag"><i class="fas fa-fire"></i> Peur eschatologique</span>
+                                    <span class="technique-tag"><i class="fas fa-hand-holding-heart"></i> Chantage spirituel</span>
+                                    <span class="technique-tag"><i class="fas fa-tasks"></i> Rhétorique du devoir</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="showSummaryBtn" class="btn">VOIR LE RÉSUMÉ DES POINTS CLÉS</button>
+        </section>
+
+        <!-- Modal pour le résumé -->
+        <div id="summaryModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">💡 POINTS CLÉS À RETENIR POUR L'ANALYSE PÉDAGOGIQUE</h2>
+                    <span class="modal-close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-text">
+                        <ul>
+                            <li><strong>Le ton calme et posé</strong> renforce l'impact du message : on n'est pas dans l'excitation, mais dans une construction stratégique de la légitimité.</li>
+                            <li><strong>Le vocabulaire est simple, direct</strong>, sans théologie profonde. C'est volontaire : la cible est jeune, francophone, parfois peu instruite religieusement.</li>
+                            <li><strong>La structure du discours</strong> suit une logique persuasive classique :
+                                <ol>
+                                    <li>Présentation humaine (identification)</li>
+                                    <li>Justification religieuse (autorité)</li>
+                                    <li>Mise en scène morale (héros/victimes)</li>
+                                    <li>Culpabilisation finale (peur du Jugement).</li>
+                                </ol>
+                            </li>
+                            <li><strong>Il n'y a aucune image de violence</strong>, mais une présence implicite de la menace : c'est le discours lui-même qui est l'arme.</li>
+                            <li><strong>Aucun appel explicite au meurtre</strong>, mais un appel au départ qui suppose un engagement militaire.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span><strong>Analyse réalisée par l'équipe de recherche</strong></span>
+                    <span><strong>© 2023</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Glossaire -->
+        <section class="section slide-up">
+            <h2 class="section-title">📘 TERMES-CLÉS À CONNAÎTRE</h2>
+            <p><strong>Lexique des techniques de propagande utilisées dans la vidéo</strong></p>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fas fa-id-card"></i>
+                    <h3>CRÉDIBILISATION</h3>
+                    <p><strong>Présenter quelqu'un comme fiable, légitime ou "comme toi".</strong></p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-gavel"></i>
+                    <h3>APPEL À L'AUTORITÉ</h3>
+                    <p><strong>Invoquer une figure (religieuse, divine) pour imposer un choix.</strong></p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-trophy"></i>
+                    <h3>GLORIFICATION</h3>
+                    <p><strong>Valoriser un comportement extrême comme héroïque ou spirituel.</strong></p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-exchange-alt"></i>
+                    <h3>INVERSION MORALE</h3>
+                    <p><strong>Faire passer l'agresseur pour la victime ou le bien pour le mal.</strong></p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-heart-broken"></i>
+                    <h3>VICTIMISATION</h3>
+                    <p><strong>Insister sur la souffrance d'un groupe pour justifier une réaction.</strong></p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <h3>CHANTAGE SPIRITUEL</h3>
+                    <p><strong>Utiliser la peur de Dieu, de l'enfer ou du Jugement pour pousser à agir.</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Danger -->
+        <section class="danger-zone slide-up">
+            <h2><i class="fas fa-exclamation-triangle"></i> POURQUOI CE TYPE DE VIDÉO EST DANGEREUX</h2>
+            <ul class="danger-list">
+                <li><strong>Elle ne semble pas choquante visuellement</strong>, mais elle s'adresse à l'émotion, à la culpabilité, à la recherche d'identité.</li>
+                <li><strong>Elle simplifie à l'extrême un conflit complexe</strong>, en cachant totalement la violence réelle commise par Daesh.</li>
+                <li><strong>Elle utilise la foi comme tool de pression</strong>, sans fond théologique sérieux.</li>
+                <li><strong>Elle peut toucher les plus vulnérables psychologiquement</strong>, notamment ceux en recherche de sens ou en rupture familiale/sociale.</li>
+            </ul>
+        </section>
+
+        <!-- Quiz interactif -->
+        <section class="section slide-up">
+            <h2 class="section-title">🔍 TESTEZ VOTRE COMPRÉHENSION</h2>
+            <p><strong>Petit quiz pour vérifier que vous avez bien identifié les techniques de propagande</strong></p>
+            
+            <div class="quiz-container">
+                <div class="quiz-question">
+                    <h3>Question 1 : Quelle technique de propagande est utilisée quand Abu Tamimah se présente comme "ton frère"?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-correct="true">Crédibilisation</button>
+                        <button class="quiz-option">Glorification</button>
+                        <button class="quiz-option">Victimisation</button>
+                    </div>
+                    <div id="quiz-feedback" class="quiz-feedback">
+                        <!-- Le feedback s'affichera ici via JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="quiz-question" style="margin-top: 2rem;">
+                    <h3>Question 2 : Quand il dit "Allah nous a ordonné de combattre", quelle technique utilise-t-il?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-option">Inversion morale</button>
+                        <button class="quiz-option" data-correct="true">Appel à l'autorité</button>
+                        <button class="quiz-option">Chantage spirituel</button>
+                    </div>
+                    <div id="quiz-feedback-2" class="quiz-feedback">
+                        <!-- Le feedback s'affichera ici via JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="cta-buttons" style="display: flex; justify-content: center; align-items: center; margin-top: 40px;">
+        <a href="../../html/DAESH/conflict-daesh-2.html" class="cta-button primary" style="font-weight: 700;">
+          Retour  
+        </a>
+    </div>
+
+
+    <script>
+        // ===== FONCTIONNALITÉS INTERACTIVES =====
+
+        // Animation au scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            // Observer pour les animations
+            const animateElements = document.querySelectorAll('.slide-up');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('slide-up');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // ===== MODAL =====
+            const modal = document.getElementById('summaryModal');
+            const btn = document.getElementById('showSummaryBtn');
+            const closeBtn = document.querySelector('.modal-close');
+            
+            // Ouvrir le modal
+            btn.addEventListener('click', function() {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            // Fermer le modal
+            closeBtn.addEventListener('click', function() {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Fermer en cliquant à l'extérieur
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // ===== QUIZ =====
+            const quizOptions = document.querySelectorAll('.quiz-option');
+            
+            quizOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const isCorrect = this.hasAttribute('data-correct');
+                    const questionContainer = this.closest('.quiz-question');
+                    const feedback = questionContainer.querySelector('.quiz-feedback');
+                    
+                    // Désactiver toutes les options après un choix
+                    questionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                        opt.style.pointerEvents = 'none';
+                    });
+                    
+                    // Marquer les bonnes et mauvaises réponses
+                    if (isCorrect) {
+                        this.classList.add('correct');
+                        showFeedback(feedback, true);
+                    } else {
+                        this.classList.add('incorrect');
+                        // Trouver et marquer la bonne réponse
+                        questionContainer.querySelector('[data-correct="true"]').classList.add('correct');
+                        showFeedback(feedback, false);
+                    }
+                });
+            });
+            
+            function showFeedback(feedbackElement, isCorrect) {
+                feedbackElement.textContent = isCorrect 
+                    ? '✅ Correct! Vous avez bien identifié cette technique de propagande.' 
+                    : '❌ Incorrect. Essayez de revoir les termes du glossaire pour mieux comprendre.';
+                feedbackElement.classList.add('show', isCorrect ? 'feedback-correct' : 'feedback-incorrect');
+            }
+
+            // ===== TIMELINE ANIMATION =====
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            timelineItems.forEach((item, index) => {
+                // Délai d'animation progressif
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateX(0)';
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>

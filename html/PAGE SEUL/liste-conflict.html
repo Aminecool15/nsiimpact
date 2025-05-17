@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../images/icone.ico" />
+    <title>NSIIMPACT - Liste des Conflits Mondiaux</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+Pro:wght@400;600&family=Crimson+Text:ital@0;1&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Styles globaux */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #e6e7e8;
+            background-color: #0a0a0a;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        .highlight {
+            color: #CC9900;
+            margin-left: 5px;
+        }
+
+        .dark-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(204, 153, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-btn {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 5px;
+            position: relative;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            color: #CC9900;
+        }
+
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #CC9900;
+            transition: width 0.3s ease;
+        }
+
+        .nav-btn:hover::after, .nav-btn.active::after {
+            width: 100%;
+        }
+
+        /* Bannière */
+        .conflict-list-header {
+            height: 30vh;
+            min-height: 200px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('css/world-dark-map.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 5%;
+        }
+
+        .conflict-list-title {
+            max-width: 800px;
+        }
+
+        .conflict-list-title h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .conflict-list-subtitle {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Conteneur principal */
+        .conflict-list-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 5%;
+        }
+
+        /* Filtres */
+        .conflict-filters {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .filter-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .filter-button {
+            background-color: rgba(30, 30, 30, 0.6);
+            border: 1px solid rgba(204, 153, 0, 0.3);
+            color: #e6e7e8;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-button:hover, .filter-button.active {
+            background-color: rgba(204, 153, 0, 0.2);
+            border-color: #CC9900;
+        }
+
+        .search-box {
+            flex-grow: 1;
+            max-width: 300px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            background-color: rgba(30, 30, 30, 0.6);
+            border: 1px solid rgba(204, 153, 0, 0.3);
+            border-radius: 4px;
+            color: #e6e7e8;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #CC9900;
+        }
+
+        /* Grille de conflits */
+        .conflicts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .conflict-card {
+            background-color: rgba(20, 20, 20, 0.7);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(204, 153, 0, 0.1);
+        }
+
+        .conflict-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(204, 153, 0, 0.3);
+        }
+
+        .card-image {
+            height: 150px;
+            background-color: #111;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.6;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .conflict-card:hover .card-image-bg {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
+        }
+
+        .card-region {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .card-type {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .card-type.state-based {
+            background-color: #CC9900;
+        }
+
+        .card-type.terrorist {
+            background-color: #e74c3c;
+        }
+
+        .card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            font-weight: bold;
+        }
+
+        .card-description {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid rgba(204, 153, 0, 0.1);
+            font-size: 0.85rem;
+        }
+
+        .card-date {
+            color: #999;
+        }
+
+        .card-fatalities {
+            color: #e74c3c;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .card-button {
+            display: block;
+            background-color: rgba(204, 153, 0, 0.1);
+            color: #CC9900;
+            padding: 10px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .card-button:hover {
+            background-color: rgba(204, 153, 0, 0.2);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 50px;
+        }
+
+        .page-number {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(30, 30, 30, 0.6);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-number:hover, .page-number.active {
+            background-color: rgba(204, 153, 0, 0.2);
+            color: #CC9900;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-top: 1px solid rgba(204, 153, 0, 0.1);
+            padding-top: 70px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 50px;
+            padding: 0 5% 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+        }
+
+        .footer-logo p {
+            margin-top: 20px;
+            color: #a4a6a9;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            flex: 2;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .link-group {
+            min-width: 150px;
+        }
+
+        .link-group h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #e6e7e8;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .link-group h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: #CC9900;
+        }
+
+        .link-group ul {
+            list-style: none;
+        }
+
+        .link-group ul li {
+            margin-bottom: 10px;
+        }
+
+        .link-group ul li a {
+            color: #a4a6a9;
+            font-size: 0.9rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .link-group ul li a:hover {
+            color: #CC9900;
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            padding: 20px 5%;
+            background-color: rgba(0, 0, 0, 0.5);
+            text-align: center;
+            font-size: 0.8rem;
+            color: #a4a6a9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .conflict-filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .conflicts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                flex-direction: column;
+                padding: 15px 5%;
+                gap: 15px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dark-overlay"></div>
+
+    <header>
+        <div class="logo">
+            <a href="/html/ACCUEIL/home.html">
+                <span class="logo-text">NSI<span class="highlight">IMPACT</span></span>
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../../html/PAGE SEUL/carte.html" class="nav-btn"><i class="fas fa-map-marked-alt"></i> Carte Analytique</a></li>
+                <li><a href="../../html/ACCUEIL/home.html" class="nav-btn"><i class="fas fa-house"></i> Accueil </a></li>
+                <li><a href="../../html/PAGE SEUL/liste-conflict.html" class="nav-btn active"><i class="fas fa-fire"></i> Conflits</a></li>
+                <li><a href="../../html/ACCUEIL/home.html#contact" class="nav-btn"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="conflict-list-header">
+        <div class="conflict-list-title">
+            <h1><b>Conflits Mondiaux Actuels</b></h1>
+            <p class="conflict-list-subtitle">Une analyse approfondie des principales zones de tensions géopolitiques et conflits armés à travers le monde</p>
+        </div>
+    </section>
+
+    <div class="conflict-list-container">
+        <div class="conflict-filters">
+            <div class="filter-group">
+                <span class="filter-label">Région :</span>
+                <button class="filter-button active" data-filter="all">Toutes</button>
+                <button class="filter-button" data-filter="europe">Europe</button>
+                <button class="filter-button" data-filter="middle-east">Moyen-Orient</button>
+                <button class="filter-button" data-filter="africa">Afrique</button>
+                <button class="filter-button" data-filter="asia">Asie</button>
+                <button class="filter-button" data-filter="americas">Amériques</button>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-label">Type :</span>
+                <button class="filter-button active" data-filter="all">Tous</button>
+                <button class="filter-button" data-filter="state-based">Conflit Étatique</button>
+                <button class="filter-button" data-filter="terrorist">Organisation Terroriste</button>
+            </div>
+
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Rechercher un conflit...">
+            </div>
+        </div>
+
+        <div class="conflicts-grid">
+            <!-- Daesh -->
+            <div class="conflict-card" data-type="terrorist" data-region="middle-east">
+                <div class="card-image">
+                    <div class="card-image-bg" style="background-image: url('../../images/image4.png');"></div>
+                    <div class="card-overlay"></div>
+                    <div class="card-region">Moyen-Orient</div>
+                    <div class="card-type terrorist" title="Conflit Étatique"></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Daesh (État Islamique)</h3>
+                    <p class="card-description">Organisation terroriste cherchant à établir un califat et continuant d'opérer comme une insurrection malgré la perte de son territoire.</p>
+                    <div class="card-meta">
+                        <span class="card-date"><i class="far fa-calendar-alt"></i> 2014-présent</span>
+                        <span class="card-fatalities"><i class="fas fa-skull"></i> >150 000</span>
+                    </div>
+                    <a href="../../html/DAESH/conflict-daesh-1.html" class="card-button">Analyser <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Russie-Ukraine -->
+            <div class="conflict-card" data-type="state-based" data-region="europe">
+                <div class="card-image">
+                    <div class="card-image-bg" style= "background-image: url('../../images/image 15.png');"></div>
+                    <div class="card-overlay"></div>
+                    <div class="card-region">Europe</div>
+                    <div class="card-type state-based" title="Conflit Étatique"></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Guerre Ukraine-Russie</h3>
+                    <p class="card-description">Conflit complexe impliquant le gouvernement ukrainien, les forces séparatistes pro-russes, la Russie, ainsi que de multiples puissances étrangères soutenant l'Ukraine.</p>
+                    <div class="card-meta">
+                        <span class="card-date"><i class="far fa-calendar-alt"></i> 2014-présent</span>
+                        <span class="card-fatalities"><i class="fas fa-skull"></i> >100 000 </span>
+                    </div>
+                    <a href="../../html/PAGE SEUL/page_vide.html" class="card-button">Analyser <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            
+
+            <!-- Syrie -->
+            <div class="conflict-card" data-type="state-based" data-region="middle-east">
+                <div class="card-image">
+                    <div class="card-image-bg" style="background-image: url('../../images/image16.jpg');"></div>&
+                    <div class="card-overlay"></div>
+                    <div class="card-region">Moyen-Orient</div>
+                    <div class="card-type state-based" title="Conflit Étatique"></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Guerre Civile en Syrie</h3>
+                    <p class="card-description">Conflit opposant le régime de Bachar al-Assad à divers groupes rebelles, aggravé par l’intervention d’acteurs internationaux, entraînant une grave crise humanitaire.</p>
+                    <div class="card-meta">
+                        <span class="card-date"><i class="far fa-calendar-alt"></i> 2014-présent</span>
+                        <span class="card-fatalities"><i class="fas fa-skull"></i> >230 000</span>
+                    </div>
+                    <a href="../../html/PAGE SEUL/page_vide.html" class="card-button">Analyser <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <div class="page-number active">1</div>
+            <div class="page-number">2</div>
+            <div class="page-number">3</div>
+            <div class="page-number"><i class="fas fa-chevron-right"></i></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="logo-text">NSI<span class="highlight">IMPACT</span></span>
+                <p>Projet Étudiant de Sciences Po</p>
+            </div>
+
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="../../html/PAGE SEUL/carte.html">Carte Analytique</a></li>
+                        <li><a href="../../html/ACCUEIL/home.html#about">À Propos</a></li>
+                        <li><a href="../../html/PAGE SEUL/liste-conflict.html">Conflits</a></li>
+                        <li><a href="../../html/ACCUEIL/home.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="link-group">
+                    <h4>Ressources</h4>
+                    <ul>
+                        <li><a href="#">Méthodologie</a></li>
+                        <li><a href="#">Base de Données</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+
+                <div class="link-group">
+                    <h4>Légal</h4>
+                    <ul>
+                        <li><a href="#">Mentions Légales</a></li>
+                        <li><a href="#">Confidentialité</a></li>
+                        <li><a href="#">Conditions d'utilisation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 NSIIMPACT. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation d'apparition au scroll
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.conflict-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            // Variables pour les filtres
+            let currentTypeFilter = 'all';
+            let currentRegionFilter = 'all';
+            let currentSearchQuery = '';
+
+            // Fonctionnalité des boutons de filtrage
+            const filterButtons = document.querySelectorAll('.filter-button');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Désactiver tous les boutons du même groupe
+                    const parentGroup = this.closest('.filter-group');
+                    parentGroup.querySelectorAll('.filter-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+
+                    // Activer le bouton cliqué
+                    this.classList.add('active');
+
+                    // Déterminer quel type de filtre a été cliqué
+                    if (parentGroup.querySelector('.filter-label').textContent.includes('Type')) {
+                        currentTypeFilter = this.dataset.filter;
+                    } else if (parentGroup.querySelector('.filter-label').textContent.includes('Région')) {
+                        currentRegionFilter = this.dataset.filter;
+                    }
+
+                    // Appliquer les filtres
+                    filterConflicts();
+                });
+            });
+
+            // Fonctionnalité de recherche
+            const searchInput = document.querySelector('.search-box input');
+            searchInput.addEventListener('input', function() {
+                currentSearchQuery = this.value.toLowerCase();
+                filterConflicts();
+            });
+
+            // Fonction pour filtrer les conflits
+            function filterConflicts() {
+                const conflictCards = document.querySelectorAll('.conflict-card');
+                let visibleCount = 0;
+
+                conflictCards.forEach(card => {
+                    const cardType = card.dataset.type;
+                    const cardRegion = card.dataset.region;
+                    const cardTitle = card.querySelector('.card-title').textContent.toLowerCase();
+                    const cardDescription = card.querySelector('.card-description').textContent.toLowerCase();
+
+                    // Vérifier les filtres
+                    const typeMatch = currentTypeFilter === 'all' || cardType === currentTypeFilter;
+                    const regionMatch = currentRegionFilter === 'all' || cardRegion === currentRegionFilter;
+                    const searchMatch = currentSearchQuery === '' || 
+                                      cardTitle.includes(currentSearchQuery) || 
+                                      cardDescription.includes(currentSearchQuery);
+
+                    if (typeMatch && regionMatch && searchMatch) {
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Mettre à jour le compteur de résultats
+                updateResultsCount(visibleCount);
+            }
+
+            // Mettre à jour le compteur de résultats
+            function updateResultsCount(count) {
+                const totalCards = document.querySelectorAll('.conflict-card').length;
+                const resultsText = `${count} conflit${count !== 1 ? 's' : ''} affiché${count !== 1 ? 's' : ''}`;
+                console.log(resultsText);
+            }
+
+            // Initialisation
+            filterConflicts();
+        });
+    </script>
+</body>
+</html>

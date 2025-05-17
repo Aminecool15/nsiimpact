@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../images/icone.ico" />
+    <title>Partager des informations à partir de données ACLED</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href ="/css/complete-home.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+Pro:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0D1117;
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #e6e7e8;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .highlight {
+            color: #CC9900;
+            margin-left: 5px;
+        }
+
+        /* Le head */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(13, 17, 23, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(204, 153, 0, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-btn {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 5px;
+            position: relative;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover {
+            color: #CC9900;
+        }
+
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #CC9900;
+            transition: width 0.3s ease;
+        }
+
+        .nav-btn:hover::after {
+            width: 100%;
+        }
+
+        /* Hero section */
+        .hero-pandas {
+            height: 60vh;
+            padding: 120px 8% 80px;
+            position: relative;
+            background: #0D1117;
+            display: flex;
+            align-items: center;
+            margin-top: 80px;
+            border-bottom: 1px solid rgba(204, 153, 0, 0.1);
+        }
+
+        .hero-pandas::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://same-assets.com/129843291/432989432.png');
+            background-size: 300px;
+            opacity: 0.03;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hero-content-pandas {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            animation: fadeInUp 1s ease-out;
+            z-index: 2;
+            position: relative;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .academic-tag {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #CC9900;
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .academic-tag::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 12px;
+            height: 1px;
+            background-color: #CC9900;
+        }
+
+        .hero-title-pandas {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            letter-spacing: 2px;
+            color: #e6e7e8;
+            font-weight: 700;
+        }
+
+        .hero-subtitle-pandas {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: #a4a6a9;
+            font-family: 'Crimson Text', serif;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding-left: 20px;
+            font-style: italic;
+            max-width: 70%;
+        }
+
+        /* Pour que sa clignote */
+        .blinking-dot {
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 8px;
+            height: 8px;
+            background-color: #CC9900;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+
+        /* Section styles */
+        .section-pandas {
+            padding: 80px 8%;
+            position: relative;
+            background: #0D1117;
+        }
+
+        .section-content-pandas {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header-pandas {
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #CC9900;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .section-pandas h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            color: #e6e7e8;
+            line-height: 1.3;
+        }
+
+        .section-description {
+            max-width: 800px;
+            margin: 0 auto 50px;
+            font-size: 1.1rem;
+            color: #a4a6a9;
+            line-height: 1.7;
+        }
+
+        /* Les Code  */
+        .code-block {
+            background-color: rgba(20, 30, 40, 0.8);
+            border-left: 3px solid #CC9900;
+            padding: 20px;
+            border-radius: 3px;
+            font-family: 'Fira Code', monospace;
+            color: #e6e7e8;
+            overflow-x: auto;
+            margin: 20px 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .code-block:hover {
+            box-shadow: 0 0 20px rgba(204, 153, 0, 0.2);
+        }
+
+        .code-keyword {
+            color: #CC9900;
+        }
+
+        .code-string {
+            color: #a4a6a9;
+        }
+
+        .code-comment {
+            color: #5a626d;
+            font-style: italic;
+        }
+
+        .code-function {
+            color: #D2A8FF;
+        }
+
+        .code-param {
+            color: #79C0FF;
+        }
+
+        .code-number {
+            color: #79C0FF;
+        }
+
+        .code-pandas {
+            color: #CC9900;
+            font-weight: 500;
+        }
+
+        /* Dataframe styles */
+        .dataframe-container {
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid rgba(204, 153, 0, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 3px;
+        }
+
+        .dataframe {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .dataframe th {
+            background-color: rgba(204, 153, 0, 0.1);
+            color: #CC9900;
+            text-align: left;
+            padding: 8px 12px;
+            font-family: 'Fira Code', monospace;
+            border-bottom: 1px solid rgba(204, 153, 0, 0.3);
+        }
+
+        .dataframe td {
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(204, 153, 0, 0.1);
+            font-family: 'Fira Code', monospace;
+        }
+
+        .dataframe tr:nth-child(even) {
+            background-color: rgba(16, 20, 27, 0.5);
+        }
+
+        .dataframe tr:hover {
+            background-color: rgba(204, 153, 0, 0.05);
+        }
+
+        /* Visualization styles */
+        .visualization {
+            background-color: rgba(20, 30, 40, 0.6);
+            padding: 20px;
+            border-radius: 3px;
+            margin: 30px 0;
+            border-left: 3px solid #CC9900;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .visualization:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .visualization-title {
+            font-family: 'Playfair Display', serif;
+            color: #CC9900;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Data bars for visualizations */
+        .data-bar {
+            width: 60px;
+            height: calc(var(--height) * 220px / 100);
+            background: linear-gradient(to top, #CC9900, #DDAA00);
+            border-radius: 3px 3px 0 0;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(204, 153, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .data-bar:hover {
+            transform: scaleY(1.05);
+            box-shadow: 0 8px 20px rgba(204, 153, 0, 0.4);
+        }
+
+        .data-bar::after {
+            content: attr(data-label);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #a4a6a9;
+            white-space: nowrap;
+        }
+
+        /* Feature cards */
+        .feature-cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+            background-color: rgba(20, 30, 40, 0.6);
+            padding: 35px;
+            border-radius: 3px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-top: 2px solid rgba(204, 153, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .icon-container {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(204, 153, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .icon-container i {
+            font-size: 24px;
+            color: #CC9900;
+        }
+
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted #CC9900;
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: rgba(20, 30, 40, 0.95);
+            color: #e6e7e8;
+            text-align: center;
+            border-radius: 3px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: 1px solid rgba(204, 153, 0, 0.3);
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgba(20, 30, 40, 0.95) transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Copy button for code blocks */
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(204, 153, 0, 0.1);
+            border: none;
+            color: #CC9900;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .code-block:hover .copy-btn {
+            opacity: 1;
+        }
+
+        .copy-btn:hover {
+            background-color: rgba(204, 153, 0, 0.3);
+        }
+
+        /* Visualization Section */
+        .visualization-section {
+            background: linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .visualization-card {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .visualization-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .map-container {
+            height: 300px;
+            background: linear-gradient(135deg, #1f2937, #111827);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 40%, transparent 20%, rgba(0, 0, 0, 0.7) 100%);
+        }
+
+        .world-map {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: auto;
+            opacity: 0.8;
+        }
+
+        .iraq-highlight {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: auto;
+        }
+
+        .iraq-path {
+            fill: #f59e0b;
+            opacity: 0.9;
+            filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                opacity: 0.7;
+                filter: drop-shadow(0 0 5px rgba(245, 158, 11, 0.3));
+            }
+            100% {
+                opacity: 0.9;
+                filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.7));
+            }
+        }
+
+        /* Pie Chart Styles */
+        .pie-chart-container {
+            height: 300px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pie-chart {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            position: relative;
+            transform: rotate(-90deg);
+        }
+
+        .pie-segment {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 50% 50%);
+            border-radius: 50%;
+            transform-origin: 50% 50%;
+        }
+
+        .pie-center {
+            position: absolute;
+            width: 40%;
+            height: 40%;
+            background: #1f2937;
+            border-radius: 50%;
+            top: 30%;
+            left: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: rotate(90deg);
+        }
+
+        .pie-center-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #f59e0b;
+        }
+
+        .pie-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .pie-legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #d1d5db;
+        }
+
+        .pie-legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+
+        /* Type styles */
+        .type {
+            display: inline-block;
+            padding: 2px 8px;
+            margin-right: 5px;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .type.state-based {
+            background-color: rgba(204, 153, 0, 0.2);
+            color: #CC9900;
+        }
+
+        .type.non-state {
+            background-color: rgba(170, 136, 0, 0.2);
+            color: #AA8800;
+        }
+
+        .type.one-sided {
+            background-color: rgba(221, 170, 0, 0.2);
+            color: #DDAA00;
+        }
+
+        /* Media Queries */
+        @media (max-width: 1200px) {
+            .hero-pandas {
+                height: auto;
+                padding: 120px 8% 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px 5%;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .hero-title-pandas {
+                font-size: 2.8rem;
+            }
+
+            .hero-subtitle-pandas {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title-pandas {
+                font-size: 2.2rem;
+            }
+
+            .section-pandas h2 {
+                font-size: 2rem;
+            }
+
+            .feature-card {
+                min-width: 100%;
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+    
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 25px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 0;
+        }
+    
+        .cta-button.primary {
+            background-color: #CC9900;
+            color: #0a0f14;
+            border: none;
+        }
+    
+        .cta-button.secondary {
+            background-color: transparent;
+            color: #e6e7e8;
+            border: 1px solid #CC9900;
+        }
+    
+        .cta-button i {
+            margin-left: 10px;
+            font-size: 0.85rem;
+        }
+    
+        .cta-button.primary:hover {
+            background-color: #e6e7e8;
+            color: #0a0f14;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+    
+        .cta-button.secondary:hover {
+            background-color: rgba(204, 153, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-gray-900 bg-opacity-70 backdrop-blur-md">
+        <div class="logo">
+            <span class="logo-text">ACLED<span class="highlight">Analytics</span></span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#etape1" class="nav-btn"><i class="fas fa-database"></i> Étape 1</a></li>
+                <li><a href="#etape2" class="nav-btn"><i class="fas fa-code"></i> Étape 2</a></li>
+                <li><a href="#etape3" class="nav-btn"><i class="fas fa-search"></i> Étape 3</a></li>
+                <li><a href="#etape4" class="nav-btn"><i class="fas fa-map-marked-alt"></i> Étape 4</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-pandas">
+        <div class="hero-content-pandas">
+            <span class="academic-tag">Analyse de données sur les conflicts</span>
+            <h1 class="hero-title-pandas">Partager des informations à partir de données <span class="highlight">ACLED</span></h1>
+            <p class="hero-subtitle-pandas">
+                <span class="blinking-dot"></span>
+                Guide complet pour extraire, analyser et visualiser des données sur les conflits avec Python
+            </p>
+            <div class="flex gap-4 mt-8">
+                <a href="#etape1" class="px-6 py-3 bg-amber-600 bg-opacity-20 border border-amber-600 border-opacity-30 rounded-md hover:bg-opacity-30 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-play"></i> Commencer le tutoriel
+                </a>
+                <a href="https://acleddata.com/knowledge-base/codebook/" class="px-6 py-3 bg-gray-700 bg-opacity-50 border border-gray-600 border-opacity-30 rounded-md hover:bg-opacity-70 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-book"></i> Documentation ACLED
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="etape1" class="section-pandas">
+        <div class="section-content-pandas">
+            <div class="section-header-pandas text-center">
+                <span class="section-tag">Étape 1</span>
+                <h2>Choisir une base de données sur ACLED</h2>
+                <p class="section-description">
+                    ACLED (Armed Conflict Location & Event Data Project) fournit des données détaillées sur les conflits à travers le monde. 
+                    Nous allons utiliser les données sur l'Irak comme exemple pour ce tutoriel.
+                </p>
+            </div>
+
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <div class="icon-container">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Sélection géographique</h3>
+                    <p class="text-gray-400">
+                        Choisissez une région spécifique (pays, province) ou un type de conflit particulier pour votre analyse.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-container">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Période temporelle</h3>
+                    <p class="text-gray-400">
+                        Définissez une période pertinente pour votre étude (année spécifique, décennie, ou tendances récentes).
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-container">
+                        <i class="fas fa-filter"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Filtres avancés</h3>
+                    <p class="text-gray-400">
+                        Utilisez les filtres ACLED pour sélectionner des types d'événements, des acteurs spécifiques ou des sous-types de violence.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-16">
+                <h3 class="text-2xl font-bold mb-6 text-amber-500 flex items-center gap-3">
+                    <i class="fas fa-download"></i> Téléchargement des données
+                </h3>
+                <p class="mb-6 text-gray-300">
+                    ACLED propose plusieurs formats de téléchargement. Pour notre analyse, nous utiliserons le format CSV qui est facilement lisible avec pandas.
+                </p>
+                
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                    <pre><code># URL de l'API ACLED pour les données sur l'Irak (exemple)
+acled_url = "https://api.acleddata.com/acled/read.csv?terms=accept&country=Iraq"
+
+# Téléchargement direct avec pandas
+import pandas as pd
+df = pd.read_csv(acled_url)
+
+# Aperçu des données
+print(df.head())</code></pre>
+                </div>
+
+                <div class="mt-8 visualization">
+                    <h4 class="visualization-title">
+                        <i class="fas fa-table"></i> Structure des données ACLED
+                    </h4>
+                    <div class="dataframe-container">
+                        <table class="dataframe">
+                            <thead>
+                                <tr>
+                                    <th>Colonne</th>
+                                    <th>Description</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event_date</td>
+                                    <td>Date de l'événement</td>
+                                    <td>datetime</td>
+                                </tr>
+                                <tr>
+                                    <td>latitude</td>
+                                    <td>Coordonnée géographique</td>
+                                    <td>float</td>
+                                </tr>
+                                <tr>
+                                    <td>longitude</td>
+                                    <td>Coordonnée géographique</td>
+                                    <td>float</td>
+                                </tr>
+                                <tr>
+                                    <td>event_type</td>
+                                    <td>Type d'événement (violence, protestations...)</td>
+                                    <td>string</td>
+                                </tr>
+                                <tr>
+                                    <td>fatalities</td>
+                                    <td>Nombre de victimes</td>
+                                    <td>int</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="etape2" class="section-pandas bg-gray-900 bg-opacity-50">
+        <div class="section-content-pandas">
+            <div class="section-header-pandas text-center">
+                <span class="section-tag">Étape 2</span>
+                <h2>Traiter les données avec pandas</h2>
+                <p class="section-description">
+                    La bibliothèque pandas offre des outils puissants pour nettoyer, transformer et analyser les données ACLED avant visualisation.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mt-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 text-amber-500 flex items-center gap-3">
+                        <i class="fas fa-broom"></i> Nettoyage des données
+                    </h3>
+                    <p class="mb-6 text-gray-300">
+                        Les données brutes nécessitent souvent un nettoyage pour être exploitables. Voici les opérations essentielles :
+                    </p>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                        <pre><code># Conversion des dates
+df['event_date'] = pd.to_datetime(df['event_date'])
+
+# Gestion des valeurs manquantes
+df['fatalities'] = df['fatalities'].fillna(0)
+
+# Filtrage des colonnes pertinentes
+cols_to_keep = ['event_date', 'latitude', 'longitude',
+                'event_type', 'sub_event_type', 'fatalities',
+               'admin1', 'admin2', 'location']
+df = df[cols_to_keep]
+
+# Suppression des doublons
+df = df.drop_duplicates()</code></pre>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 text-amber-500 flex items-center gap-3">
+                        <i class="fas fa-chart-line"></i> Analyse exploratoire
+                    </h3>
+                    <p class="mb-6 text-gray-300">
+                        Les statistiques descriptives nous aident à comprendre la distribution des données avant toute visualisation.
+                    </p>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                        <pre><code># Statistiques de base
+print(df.describe())
+
+# Nombre d'événements par type
+event_counts = df['event_type'].value_counts()
+
+# Taux de mortalité par région
+fatalities_by_region = df.groupby('admin1')['fatalities'].sum().sort_values(ascending=False)
+
+# Évolution temporelle
+monthly_events = df.resample('M', on='event_date').size()</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold mb-6 text-amber-500 flex items-center gap-3">
+                    <i class="fas fa-cogs"></i> Transformation avancée
+                </h3>
+                <p class="mb-6 text-gray-300">
+                    Pour des analyses plus poussées, nous pouvons créer de nouvelles variables et agrégations.
+                </p>
+                
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                    <pre><code># Création de périodes (trimestres)
+df['quarter'] = df['event_date'].dt.to_period('Q')
+
+# Classification des événements violents
+violent_events = ['Battles', 'Explosions/Remote violence', 'Violence against civilians']
+df['is_violent'] = df['event_type'].isin(violent_events)
+
+# Agrégation par région et type d'événement
+region_event_matrix = pd.crosstab(
+    index=df['admin1'],
+    columns=df['event_type'],
+    values=df['event_date'],
+    aggfunc='count'
+)</code></pre>
+                </div>
+                Appetissant n'est-ce pas ? ^^
+            </div>
+        </div>
+    </section>
+
+    <section id="etape3" class="section-pandas">
+        <div class="section-content-pandas">
+            <div class="section-header-pandas text-center">
+                <span class="section-tag">Étape 3</span>
+                <h2>Rechercher des informations complémentaires</h2>
+                <p class="section-description">
+                    Les données ACLED gagnent à être enrichies avec des sources externes pour contextualiser les événements.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 mt-12">
+                <div class="bg-gray-800 p-6 rounded-lg border-l-4 border-amber-500">
+                    <h3 class="text-xl font-bold mb-3 text-amber-400">
+                        <i class="fas fa-newspaper mr-2"></i> Médias
+                    </h3>
+                    <p class="text-gray-400">
+                        Articles de presse pour comprendre le contexte politique et social des événements enregistrés.
+                    </p>
+                    <div class="mt-4">
+                        <a href="https://www.reuters.com" class="text-amber-500 hover:text-amber-400 text-sm flex items-center">
+                            <i class="fas fa-external-link-alt mr-2"></i> Reuters
+                        </a>
+                        <a href="https://www.aljazeera.net" class="text-amber-500 hover:text-amber-400 text-sm flex items-center mt-2">
+                            <i class="fas fa-external-link-alt mr-2"></i> Al Jazeera
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-lg border-l-4 border-amber-500">
+                    <h3 class="text-xl font-bold mb-3 text-amber-400">
+                        <i class="fas fa-landmark mr-2"></i> Rapports officiels
+                    </h3>
+                    <p class="text-gray-400">
+                        Documents gouvernementaux et rapports d'ONG pour des données vérifiées et des analyses approfondies.
+                    </p>
+                    <div class="mt-4">
+                        <a href="https://www.un.org/fr/" class="text-amber-500 hover:text-amber-400 text-sm flex items-center">
+                            <i class="fas fa-external-link-alt mr-2"></i> ONU
+                        </a>
+                        <a href="https://www.amnesty.fr" class="text-amber-500 hover:text-amber-400 text-sm flex items-center mt-2">
+                            <i class="fas fa-external-link-alt mr-2"></i> Amnesty International
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-lg border-l-4 border-amber-500">
+                    <h3 class="text-xl font-bold mb-3 text-amber-400">
+                        <i class="fas fa-database mr-2"></i> Données complémentaires
+                    </h3>
+                    <p class="text-gray-400">
+                        Statistiques démographiques, économiques ou infrastructurelles pour enrichir l'analyse.
+                    </p>
+                    <div class="mt-4">
+                        <a href="https://data.humdata.org" class="text-amber-500 hover:text-amber-400 text-sm flex items-center">
+                            <i class="fas fa-external-link-alt mr-2"></i> Humanitarian Data Exchange
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <section id="etape4" class="section-pandas bg-gray-900 bg-opacity-50">
+        <div class="section-content-pandas">
+            <div class="section-header-pandas text-center">
+                <span class="section-tag">Étape 4</span>
+                <h2>Visualisation des données</h2>
+                <p class="section-description">
+                    Les visualisations permettent de communiquer efficacement les insights tirés des données ACLED à travers des représentations graphiques intuitives.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mt-12">
+                <!-- Carte interactive -->
+                <div class="visualization-card p-6">
+                    <h3 class="text-2xl font-bold mb-6 text-amber-400 flex items-center gap-3">
+                        <i class="fas fa-globe-americas"></i> Carte du monde
+                    </h3>
+                    <p class="mb-6 text-gray-300">
+                        Carte du monde avec mise en évidence de l'Irak en jaune sans contours, montrant sa position stratégique.
+                    </p>
+                    
+                    <div class="map-container">
+                        <div class="map-overlay"></div>
+                        <!-- Image de la carte du monde -->
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1200px-World_map_-_low_resolution.svg.png" 
+                              alt="Carte du monde" 
+                              class="map-image">
+                    </div>
+                    
+                    <div class="mt-4 flex justify-between text-sm text-gray-400">
+                        <span><i class="fas fa-map-marker-alt mr-1"></i> Le Monde</span>
+                        <span><i class="fas fa-calendar-alt mr-1"></i> Janv 2020 - Avri 2025</span>
+                    </div>
+                </div>
+                
+                <!-- Graphique camembert -->
+                <div class="visualization-card p-6">
+                    <h3 class="text-2xl font-bold mb-6 text-amber-400 flex items-center gap-3">
+                        <i class="fas fa-chart-pie"></i> Répartition des événements
+                    </h3>
+                    <p class="mb-6 text-gray-300">
+                        Répartition des données extraites sur un événement quelquonque .
+                    </p>
+                    
+                    <div class="pie-chart-container">
+                        <div class="pie-chart">
+                            <!-- Segments du camembert -->
+                            <div class="pie-segment" style="background: #f59e0b; transform: rotate(0deg);"></div>
+                            <div class="pie-segment" style="background: #d97706; transform: rotate(108deg);"></div>
+                            <div class="pie-segment" style="background: #b45309; transform: rotate(180deg);"></div>
+                            <div class="pie-segment" style="background: #92400e; transform: rotate(252deg);"></div>
+                            <div class="pie-segment" style="background: #78350f; transform: rotate(324deg);"></div>
+                            
+                            <!-- Centre du camembert -->
+                            <div class="pie-center">
+                                <div class="pie-center-text">1,248</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pie-legend">
+                        <div class="pie-legend-item">
+                            <div class="pie-legend-color" style="background: #f59e0b;"></div>
+                            <span>Batailles (42%)</span>
+                        </div>
+                        <div class="pie-legend-item">
+                            <div class="pie-legend-color" style="background: #d97706;"></div>
+                            <span>Explosions (28%)</span>
+                        </div>
+                        <div class="pie-legend-item">
+                            <div class="pie-legend-color" style="background: #b45309;"></div>
+                            <span>Violences (15%)</span>
+                        </div>
+                        <div class="pie-legend-item">
+                            <div class="pie-legend-color" style="background: #92400e;"></div>
+                            <span>Attaques (10%)</span>
+                        </div>
+                        <div class="pie-legend-item">
+                            <div class="pie-legend-color" style="background: #78350f;"></div>
+                            <span>Autres (5%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center text-gray-400 text-sm">
+                <i class="fas fa-database mr-2"></i>
+            </div>
+        </div>
+    </section>
+
+    
+        <div class="cta-buttons" style="display: flex; justify-content: center; align-items: center; margin-top: 40px;">
+            <a href="home.html" class="cta-button primary" style="font-weight: 700;">
+                Retour À l'accueil
+            </a>
+        </div>
+    
+
+    <script>
+        // Fonction pour copier le code
+        function copyCode(button) {
+            const codeBlock = button.parentElement;
+            const code = codeBlock.querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copié!';
+                setTimeout(() => {
+                    button.textContent = 'Copier';
+                }, 2000);
+            });
+        }
+
+        // Animation au défilement
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fadeIn');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.section-pandas').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
