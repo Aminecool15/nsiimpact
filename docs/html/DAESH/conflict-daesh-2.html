@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../images/icone.ico" />
+    <title>NSIIMPACT - Analyse de Daesh (État Islamique)</title>
+    <link rel="stylesheet" href="../../css/conflict-details2.css">
+    <link rel="stylesheet" href="../../css/complete-home.css">
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+Pro:wght@400;600&family=Crimson+Text:ital@0;1&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dark-overlay"></div>
+
+    <header>
+        <div class="logo">
+            <a href="../../html/ACCUEIL/home.html">
+                <span class="logo-text">NSI<span class="highlight">IMPACT</span></span>
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../../html/DAESH/carte.html" class="nav-btn"><i class="fas fa-map-marked-alt"></i> Carte Analytique</a></li>
+                <li><a href="../../html/ACCUEIL/home.html" class="nav-btn"><i class="fas fa-house"></i> Accueil</a></li>
+                <li><a href="../../html/DAESH/conflict-list.html" class="nav-btn active"><i class="fas fa-fire"></i> Conflits</a></li>
+                <li><a href="../../html/ACCUEIL/home.html#contact" class="nav-btn"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="conflict-bannere">
+        <div class="banner-overlay"></div>
+        <div class="conflict-title">
+            <h1>Daesh <span class="arabic">(الدولة الإسلامية)</span></h1>
+            <p class="conflict-subtitle">Organisation terroriste djihadiste cherchant à établir un califat</p>
+        </div>
+    </div>
+
+    <main class="conflict-content">
+        <div class="conflict-sidebar">
+            <div class="sidebar-section">
+                <h3>Informations clés</h3>
+                <ul class="info-list">
+                    <li><span class="info-label">Type de conflit :</span> <span class="tag non-state">Non-étatique</span> <span class="tag one-sided">Violence unilatérale</span></li>
+                    <li><span class="info-label">Date d'émergence :</span> 2006 (sous le nom d'État islamique en Irak)</li>
+                    <li><span class="info-label">Apogée territoriale :</span> 2014-2015</li>
+                    <li><span class="info-label">Dirigeant actuel :</span> Abu al-Hussein al-Husseini al-Qurashi</li>
+                    <li><span class="info-label">Zones d'opération :</span> Irak, Syrie, Afrique, Asie du Sud-Est</li>
+                    <li><span class="info-label">Victimes estimées :</span> Plus de 200 000 civils tués (2014-2023)</li>
+                    <li><span class="info-label">Déplacés :</span> Plusieurs millions de personnes</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Statut actuel</h3>
+                <div class="status-indicator high">
+                    <span class="dot"></span> Menace active
+                </div>
+                <p class="status-desc">Bien que défait territorialement en 2019, Daesh continue d'opérer comme une insurrection et une menace terroriste internationale.</p>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Interventions internationales</h3>
+                <ul class="intervention-list">
+                    <li><i class="fas fa-shield-alt"></i> Coalition internationale contre Daesh (2014-présent)</li>
+                    <li><i class="fas fa-fighter-jet"></i> Frappes aériennes russes (2015-présent)</li>
+                    <li><i class="fas fa-user-shield"></i> Forces kurdes (YPG, Peshmerga)</li>
+                    <li><i class="fas fa-users"></i> Milices chiites irakiennes</li>
+                    <li><i class="fas fa-hand-holding-medical"></i> Aide humanitaire de l'ONU</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="conflict-main-content">
+             <!-- Main Content -->
+        <main class="conflict-main-content">
+            <!-- Testimonials Section -->
+            <section class="content-section visible">
+                <h2><i class="fas fa-microphone-alt"></i> Témoignages</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                    <!-- Testimonial 1 - Merah -->
+                    <div 
+                        class="testimonial-card bg-gray-900 rounded-lg p-6 cursor-pointer transition-all duration-300"
+                        onclick="showTestimonial(1)"
+                        id="testimonial-1"
+                    >
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-amber-600">
+                                <i class="fas fa-child text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">Mohammed Merah</h3>
+                                <p class="text-sm text-gray-400">Une Enfance troublée</p>
+                            </div>
+                        </div>
+                         <div class="flex justify-between items-center mt-4">
+                            <span class="text-xs text-gray-500"><i class="fas fa-clock mr-1"></i> 6:15</span>
+                            <span class="text-xs px-2 py-1 bg-gray-800 rounded-full text-amber-500">
+                                <i class="fas fa-headphones mr-1"></i> Écouter
+                            </span>
+                        </div>
+                    </div>
+                        
+                    
+                    <!-- Testimonial 2 - Sarah -->
+                    <div 
+                        class="testimonial-card bg-gray-900 rounded-lg p-6 cursor-pointer transition-all duration-300"
+                        onclick="showTestimonial(2)"
+                        id="testimonial-2"
+                    >
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-amber-600">
+                                <i class="fas fa-female text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">Sarah</h3>
+                                <p class="text-sm text-gray-400">Étudiante en médecine </p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-xs text-gray-500"><i class="fas fa-clock mr-1"></i> 6:15</span>
+                            <span class="text-xs px-2 py-1 bg-gray-800 rounded-full text-amber-500">
+                                <i class="fas fa-headphones mr-1"></i> Écouter
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 3 - Journaliste -->
+                    <div 
+                        class="testimonial-card bg-gray-900 rounded-lg p-6 cursor-pointer transition-all duration-300"
+                        onclick="showTestimonial(3)"
+                        id="testimonial-3"
+                    >
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-amber-600">
+                                <i class="fas fa-newspaper text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">Journaliste</h3>
+                                <p class="text-sm text-gray-400">Enquête sur les recruteurs</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-xs text-gray-500"><i class="fas fa-clock mr-1"></i> 8:42</span>
+                            <span class="text-xs px-2 py-1 bg-gray-800 rounded-full text-amber-500">
+                                <i class="fas fa-headphones mr-1"></i> Écouter
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial Content -->
+                <div class="bg-gray-900 rounded-xl p-8 testimonial-content hidden" id="testimonial-content">
+                    <!-- Audio Player -->
+                    <div class="audio-player p-4 mb-8 rounded-lg">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-bold text-lg" id="current-testimonial-title">Sélectionnez un témoignage</h3>
+                            <span class="text-sm text-gray-400" id="current-testimonial-duration">--:--</span>
+                        </div>
+                        
+                        <div class="progress-bar mb-3 rounded-full overflow-hidden">
+                            <div class="progress" id="progress-bar"></div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-400" id="current-time">0:00</span>
+                            
+                            <div class="flex items-center space-x-4">
+                                <button class="text-gray-400 hover:text-white" id="skip-back">
+                                    <i class="fas fa-step-backward"></i>
+                                </button>
+                                
+                                <button class="play-btn text-2xl text-amber-600" id="play-btn">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                
+                                <button class="text-gray-400 hover:text-white" id="skip-forward">
+                                    <i class="fas fa-step-forward"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <button class="text-gray-400 hover:text-white mr-2" id="volume-btn">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                                <input type="range" min="0" max="1" step="0.1" value="0.7" class="w-20" id="volume-control">
+                            </div>
+                        </div>
+                        
+                        <audio id="audio-player">
+                            <source src="../../son/journaliste_temoin.mp3" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'élément audio.
+                        </audio>
+                    </div>
+                    
+                    <!-- Testimonial Text -->
+                    <div class="testimonial-text">
+                        <div class="mb-8" id="testimonial-1-text" style="display: none;">
+                            <div class="flex mb-6">
+                                <i class="fas fa-quote-left quote-icon text-4xl mr-4"></i>
+                                <div>
+                                    <h3 class="text-xl font-serif font-bold mb-4">Mohammed Merah - Une enfance troublée</h3>
+                                    <p class="mb-4 text-gray-300">
+                                        L'enfance de Mohamed Merah fut marquée par une situation familiale compliquée, où la violence faisait partie du quotidien. Selon des pièces du dossier d'instruction, il a vécu des violences physiques sur sa mère, des fugues et des placements en foyers. Cette enfance perturbée a créé un manque de repères dans sa vie, contribuant à son isolement social. À l’école, il se décrivait comme un enfant en marge, sans repères ni soutien.
+                                    </p>
+                                    <p class="mb-4 text-gray-300">
+                                        Sa trajectoire a pris une tournure plus sombre lorsqu'il a commencé à fréquenter des groupes de jeunes, qui lui ont offert reconnaissance et solidarité. Après des délits mineurs, il a été exposé à des idéologies extrémistes, notamment proches d'Al-Qaïda. La radicalisation de Merah s’est intensifiée avec des idées de vengeance, liées aux tensions politiques au Moyen-Orient. Son acte tragique en 2012, où il a tué sept personnes, s’inscrit dans ce contexte de radicalisation violente. Bien qu'il se soit revendiqué d'Al-Qaïda, il n’a jamais été membre officiel de l'organisation, et ses actions ne sont pas directement liées à Daesh, qui est apparu après ses actes..
+                                    </p>
+                                    <p class="text-gray-400 italic">
+                                        Source : Investigation et Enquête, 2014
+                                    </p>
+                                    
+
+                                
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-8" id="testimonial-2-text" style="display: none;">
+                            <div class="flex mb-6">
+                                <i class="fas fa-quote-left quote-icon text-4xl mr-4"></i>
+                                <div>
+                                    <h3 class="text-xl font-serif font-bold mb-4">Sarah - 20 ans, étudiante recrutée par Daesh</h3>
+                                    <p class="mb-4 text-gray-300">
+                                        Sarah, déjà musulmane et étudiante en médecine, a décidé de rejoindre Daesh en pensant qu’elle pourrait vivre pleinement sa foi. Elle croyait que la Syrie serait un lieu où les principes islamiques seraient respectés, une société pure où les femmes seraient valorisées. Cependant, une fois arrivée sur place, elle s'est rendue compte que la réalité était bien différente de ce qu'elle avait imaginé.
+                                    </p>
+                                    <p class="mb-4 text-gray-300">
+                                        Sarah a refusé d'épouser le combattant qui lui avait été assigné, tout a basculé. Elle a été traitée de traître, d'espionne. Les autres femmes, celles qui étaient là depuis plus longtemps, l'ont humiliée quotidiennement. Elle a été enfermée, battue, privée de nourriture. Elle a vu des choses... des choses qu'aucun être humain ne devrait jamais voir.
+                                    </p>
+                                    <p class="text-gray-400 italic">
+                                        Source : France 24, 13 janvier 2016
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-8" id="testimonial-3-text" style="display: none;">
+                            <div class="flex mb-6">
+                                <i class="fas fa-quote-left quote-icon text-4xl mr-4"></i>
+                                <div>
+                                    <h3 class="text-xl font-serif font-bold mb-4">Une journaliste infiltrée parmi les recruteurs</h3>
+                                    <p class="mb-4 text-gray-300">
+                                        Dans le cadre de son enquête, une journaliste a échangé avec des recruteurs et constaté que des vidéos prônant le djihad sont facilement accessibles sur Internet. Ces contenus, diffusés via les réseaux sociaux, sont conçus pour séduire des individus vulnérables en quête de sens ou d'identité. Les recruteurs exploitent ces plateformes pour diffuser leur idéologie et inciter des personnes à les rejoindre.
+                                    </p>
+                                    <p class="mb-4 text-gray-300">
+                                    </p>
+                                    <p class="text-gray-400 italic">
+                                        Source : BFM TV, 2015
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="no-testimonial-selected" class="text-center py-12">
+                            <i class="fas fa-microphone-alt text-5xl text-gray-700 mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Sélectionnez un témoignage</h3>
+                            <p class="text-gray-500">Cliquez sur l'une des cartes ci-dessus pour écouter un témoignage</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            
+
+            <!-- 2. Interactive timeline -->
+            <section class="content-section visible">
+                <h2><i class="fas fa-history"></i> Timeline De Daesh</h2>
+                
+                <div class="cta-buttons" style="display: flex; justify-content: center; align-items: center; margin-top: 40px; text-align: center; width: 100%;">
+                    <a href="../../html/DAESH/time_line_daesh.html" class="cta-button primary" style="font-weight: 700;">
+                        Consulter La Timeline
+                    </a>
+                
+                </div>
+            </section>
+
+            <!-- 3. Video section -->
+            <section class="content-section visible">
+                <h2><i class="fas fa-video"></i> Décryptage de la propagande de Daesh</h2>
+                <div class="video-container">
+                    <video controls width="100%" height="auto">
+                        <source src="../../video/propagande.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
+                <div class="impact-card" style="margin-top: 20px;">
+                    <a href="../../html/DAESH/decryptage-video-daesh.html" class="cta-button primary" style="font-weight: 700; align-items: center;">
+                        Analyse Complete De la vidéo
+                    </a>
+                </div>
+            </section>
+
+            <!-- 4. Quick quiz -->
+            <section class="content-section visible">
+                <h2><i class="fas fa-question-circle"></i> Quiz rapide : Testez vos connaissances sur Daesh</h2>
+                <div class="impact-card" id="quiz-daesh">
+                    <div class="quiz-question" id="current-question">
+                        En quelle année Daesh a proclamé son "califat" en 2014?
+                    </div>
+                    <div class="quiz-choices" id="quiz-choices">
+                        <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">2006</button>
+                        <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">2014</button>
+                        <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">2018</button>
+                    </div>
+                    <div class="quiz-feedback" id="quiz-feedback"></div>
+                    <button class="quiz-btn" id="next-question" style="margin-top: 15px; display: none;" onclick="nextQuestion()">Question Suivante</button>
+                </div>
+            </section>
+
+
+            <!-- 5. Myth or Reality? -->
+            <section class="content-section visible">
+                <h2><i class="fas fa-lightbulb"></i> Mythe ou Réalité ?</h2>
+                
+                <button class="myth-toggle" data-myth="1">
+                    Daesh contrôle encore de vastes territoires en 2024 : Vrai ou Faux ?
+                </button>
+                <div class="myth-answer" id="myth-answer-1">
+                    <div class="myth-highlight">
+                        <strong>Faux:</strong> En 2024, Daesh ne contrôle plus de territoires significatifs. L'organisation opère désormais principalement à travers des réseaux clandestins et des actions isolées.
+                    </div>
+                </div>
+                
+                <button class="myth-toggle" data-myth="2">
+                    Daesh a été fondé par Oussama ben Laden : Vrai ou Faux ?
+                </button>
+                <div class="myth-answer" id="myth-answer-2">
+                    <div class="myth-highlight">
+                        <strong>Faux:</strong> Daesh est issu d'Al-Qaïda en Irak, mais n'a pas été fondé par Ben Laden. Le groupe s'est ensuite séparé d'Al-Qaïda en raison de différences idéologiques.
+                    </div>
+                </div>
+                
+                <button class="myth-toggle" data-myth="3">
+                    Daesh a été complètement défait : Vrai ou Faux ?
+                </button>
+                <div class="myth-answer" id="myth-answer-3">
+                    <div class="myth-highlight">
+                        <strong>Faux:</strong> Bien que Daesh ait perdu son califat territorial, il reste actif avec des milliers de combattants et continue de mener des attaques dans plusieurs pays.
+                    </div>
+                </div>
+                
+                <button class="myth-toggle" data-myth="4">
+                    Daesh opère uniquement en Irak et en Syrie : Vrai ou Faux ?
+                </button>
+                <div class="myth-answer" id="myth-answer-4">
+                    <div class="myth-highlight">
+                        <strong>Faux:</strong> Daesh a des affiliés et des opérations dans de nombreux pays, y compris en Afghanistan, au Nigéria, en Somalie et aux Philippines, entre autres.
+                    </div>
+                </div>
+            </section>
+        </main>
+
+
+    <div class="pagination">
+        <a href="../../html/DAESH/conflict-daesh-1.html" class="page-number">1</a>
+        <div class="page-number active">2</div>
+        <a href="../../html/DAESH/conflict-daesh-3.html" class="page-number">3</a>
+        <div class="page-number"><i class="fas fa-chevron-right"></i></div>
+    </div>
+</div>
+
+
+
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="logo-text">NSI<span class="highlight">IMPACT</span></span>
+                <p>Projet Étudiant de Sciences Po</p>
+            </div>
+
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="../../html/PAGE SEUL/carte.html">Carte Analytique</a></li>
+                        <li><a href="../../html/ACCUEIL/home.html">À Propos</a></li>
+                        <li><a href="../../html/PAGE SEUL/liste-conflict.html">Conflits</a></li>
+                        <li><a href="../../html/ACCUEIL/home.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="link-group">
+                    <h4>Ressources</h4>
+                    <ul>
+                        <li><a href="#">Méthodologie</a></li>
+                        <li><a href="#">Base de Données</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+
+                <div class="link-group">
+                    <h4>Légal</h4>
+                    <ul>
+                        <li><a href="#">Mentions Légales</a></li>
+                        <li><a href="#">Confidentialité</a></li>
+                        <li><a href="#">Conditions d'utilisation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+    </footer>
+
+    <script src="../../js/daesh2.js"></script>
+</body>
+</html>
